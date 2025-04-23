@@ -13,7 +13,9 @@
     "next": "15.0.0",
     "react": "19.0.0-rc-45804af1-20241021",
     "react-dom": "19.0.0-rc-45804af1-20241021",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "lucide-react": "^0.446.0",
     "tailwind-merge": "^2.5.2"
   },
   "devDependencies": {
