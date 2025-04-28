@@ -19,9 +19,11 @@
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.34.0",
     "lucide-react": "^0.446.0",
+    "next-auth": "5.0.0-beta.25",
     "postgres": "^3.4.4",
     "tailwind-merge": "^2.5.2",
-    "@vercel/postgres": "^0.10.0"
+    "@vercel/postgres": "^0.10.0",
+    "bcrypt-ts": "^5.0.2"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.2",
