@@ -1,0 +1,19 @@
+{
+  "name": "bedda.ai/chat",
+  "short_name": "bedda chat",
+  "icons": [
+    {
+      "src": "/images/favicons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/favicons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#1a292e",
+  "background_color": "#d5e5ea",
+  "display": "standalone"
+}
