@@ -22,23 +22,11 @@ import { entitlementsByUserType } from "@/lib/ai/entitlements";
 import type { ChatModel } from "@/lib/ai/models";
 import { type RequestHints, systemPrompt } from "@/lib/ai/prompts";
 import { myProvider } from "@/lib/ai/providers";
-import { analyzeDataTool } from "@/lib/ai/tools/analyze-data";
 import { createDocument } from "@/lib/ai/tools/create-document";
 import { generateImageTool } from "@/lib/ai/tools/generate-image";
-import { generateStructuredDataTool } from "@/lib/ai/tools/generate-structured-data";
 import { getWeather } from "@/lib/ai/tools/get-weather";
 import { requestSuggestions } from "@/lib/ai/tools/request-suggestions";
-import {
-  compareTextSimilarityTool,
-  generateTextEmbeddingsTool,
-} from "@/lib/ai/tools/text-embeddings";
-import { transcribeAudioTool } from "@/lib/ai/tools/transcribe-audio";
 import { updateDocument } from "@/lib/ai/tools/update-document";
-import {
-  buildGatewayConfig,
-  getThinkingBudget,
-} from "@/lib/ai/gateway-config";
-import { getModelConfig } from "@/lib/ai/model-config";
 import { isProductionEnvironment } from "@/lib/constants";
 import {
   createStreamId,
@@ -186,32 +174,27 @@ export async function POST(request: Request) {
 
     let finalMergedUsage: AppUsage | undefined;
 
-    // Build active tools list based on model capabilities
-    // All tools go through Vercel AI Gateway which handles provider credentials
-    const isGemini25FlashImage = selectedChatModel === "google-gemini-2.5-flash-image";
+    // Check if image generation is available (requires OpenAI API key)
+    const hasOpenAIKey = Boolean(process.env.OPENAI_API_KEY);
     
-    const allTools = [
+    // Build active tools list based on model capabilities and configuration
+    const baseActiveTools = [
       "getWeather",
       "createDocument",
       "updateDocument",
       "requestSuggestions",
-      "analyzeData",
-      "generateStructuredData",
-      "transcribeAudio",
-      "generateTextEmbeddings",
-      "compareTextSimilarity",
     ];
     
-    // Gemini 2.5 Flash Image does NOT support function calling at all
-    // It generates images via responseModalities in the model response itself
     const activeTools =
-      selectedChatModel === "chat-model-reasoning" || isGemini25FlashImage
+      selectedChatModel === "chat-model-reasoning"
         ? []
-        : [...allTools, "generateImage"];
+        : hasOpenAIKey
+          ? [...baseActiveTools, "generateImage"]
+          : baseActiveTools;
 
     const stream = createUIMessageStream({
       execute: ({ writer: dataStream }) => {
-        // Build tools object - all tools use Vercel AI Gateway
+        // Build tools object conditionally
         const tools: Record<string, any> = {
           getWeather,
           createDocument: createDocument({ session, dataStream }),
@@ -220,59 +203,25 @@ export async function POST(request: Request) {
             session,
             dataStream,
           }),
-          analyzeData: analyzeDataTool(),
-          generateImage: generateImageTool(),
-          generateStructuredData: generateStructuredDataTool(),
-          transcribeAudio: transcribeAudioTool(),
-          generateTextEmbeddings: generateTextEmbeddingsTool(),
-          compareTextSimilarity: compareTextSimilarityTool(),
         };
-        
-        // Get the actual gateway model ID
-        const gatewayModelId = myProvider.languageModel(selectedChatModel).modelId || "";
-        
-        // Get model-specific configuration
-        const modelConfig = getModelConfig(gatewayModelId);
-        
-        // Build provider options with gateway config and fallback
-        const gatewayConfig = buildGatewayConfig(gatewayModelId);
-        const providerOptions: Record<string, any> = {
-          gateway: gatewayConfig,
-        };
-        
-        // Add image generation for Gemini 2.5 Flash Image
-        if (isGemini25FlashImage) {
-          providerOptions.google = {
-            responseModalities: ['TEXT', 'IMAGE']
-          };
+
+        // Only add image generation if OpenAI API key is configured
+        if (hasOpenAIKey) {
+          tools.generateImage = generateImageTool();
         }
-        
-        // Add thinking budget for Anthropic models (helps control extended reasoning)
-        const thinkingBudget = getThinkingBudget(gatewayModelId);
-        if (thinkingBudget) {
-          providerOptions.anthropic = {
-            thinkingBudget,
-          };
-        }
-        
+
         const result = streamText({
           model: myProvider.languageModel(selectedChatModel),
           system: systemPrompt({ 
             selectedChatModel, 
             requestHints,
+            hasImageGeneration: hasOpenAIKey,
           }),
           messages: convertToModelMessages(uiMessages),
-          // Use model-specific maxSteps configuration
-          stopWhen: stepCountIs(modelConfig.maxSteps),
-          // Use model-specific temperature if available
-          ...(modelConfig.temperature && { temperature: modelConfig.temperature }),
-          // Only pass tools if model supports them
-          ...(activeTools.length > 0 && {
-            experimental_activeTools: activeTools,
-            tools,
-          }),
+          stopWhen: stepCountIs(5),
+          experimental_activeTools: activeTools,
           experimental_transform: smoothStream({ chunking: "word" }),
-          providerOptions,
+          tools,
           experimental_telemetry: {
             isEnabled: isProductionEnvironment,
             functionId: "stream-text",
@@ -282,41 +231,15 @@ export async function POST(request: Request) {
               selectedModel: selectedChatModel,
               visibilityType: selectedVisibilityType,
               toolsEnabled: selectedChatModel !== "chat-model-reasoning",
-              imageGenerationEnabled: isGemini25FlashImage,
             },
           },
-          onFinish: async ({ usage, response }) => {
+          onFinish: async ({ usage }) => {
             try {
               const providers = await getTokenlensCatalog();
               const modelId =
                 myProvider.languageModel(selectedChatModel).modelId;
-              
-              // Extract provider metadata from response
-              const providerMetadata = response.headers?.['x-vercel-ai-provider-metadata'];
-              let gatewayMetadata: any = null;
-              
-              if (providerMetadata) {
-                try {
-                  const metadata = JSON.parse(providerMetadata);
-                  gatewayMetadata = metadata.gateway;
-                  
-                  // Log gateway routing and cost info for debugging
-                  if (gatewayMetadata) {
-                    console.log('AI Gateway Metadata:', {
-                      cost: gatewayMetadata.cost,
-                      routing: gatewayMetadata.routing,
-                    });
-                  }
-                } catch (parseErr) {
-                  console.warn('Failed to parse provider metadata', parseErr);
-                }
-              }
-              
               if (!modelId) {
-                finalMergedUsage = { 
-                  ...usage, 
-                  ...(gatewayMetadata?.cost && { gatewayCost: gatewayMetadata.cost }),
-                };
+                finalMergedUsage = usage;
                 dataStream.write({
                   type: "data-usage",
                   data: finalMergedUsage,
@@ -325,10 +248,7 @@ export async function POST(request: Request) {
               }
 
               if (!providers) {
-                finalMergedUsage = { 
-                  ...usage, 
-                  ...(gatewayMetadata?.cost && { gatewayCost: gatewayMetadata.cost }),
-                };
+                finalMergedUsage = usage;
                 dataStream.write({
                   type: "data-usage",
                   data: finalMergedUsage,
@@ -337,12 +257,7 @@ export async function POST(request: Request) {
               }
 
               const summary = getUsage({ modelId, usage, providers });
-              finalMergedUsage = { 
-                ...usage, 
-                ...summary, 
-                modelId,
-                ...(gatewayMetadata?.cost && { gatewayCost: gatewayMetadata.cost }),
-              } as AppUsage;
+              finalMergedUsage = { ...usage, ...summary, modelId } as AppUsage;
               dataStream.write({ type: "data-usage", data: finalMergedUsage });
             } catch (err) {
               console.warn("TokenLens enrichment failed", err);
@@ -389,18 +304,16 @@ export async function POST(request: Request) {
       },
     });
 
-    // Enable resumable streams if Redis is configured
-    const streamContext = getStreamContext();
+    // const streamContext = getStreamContext();
 
-    if (streamContext) {
-      return new Response(
-        await streamContext.resumableStream(streamId, () =>
-          stream.pipeThrough(new JsonToSseTransformStream())
-        )
-      );
-    }
+    // if (streamContext) {
+    //   return new Response(
+    //     await streamContext.resumableStream(streamId, () =>
+    //       stream.pipeThrough(new JsonToSseTransformStream())
+    //     )
+    //   );
+    // }
 
-    // Fallback to regular streaming if resumable streams are not available
     return new Response(stream.pipeThrough(new JsonToSseTransformStream()));
   } catch (error) {
     const vercelId = request.headers.get("x-vercel-id");

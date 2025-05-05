@@ -4,45 +4,16 @@ import { z } from "zod";
 
 import { auth } from "@/app/(auth)/auth";
 
-// Supported file types for different use cases
-const ALLOWED_FILE_TYPES = [
-  // Images
-  "image/jpeg",
-  "image/png",
-  "image/gif",
-  "image/webp",
-  "image/svg+xml",
-  // Audio (for transcription)
-  "audio/mpeg",
-  "audio/mp3",
-  "audio/wav",
-  "audio/mp4",
-  "audio/m4a",
-  "audio/webm",
-  "audio/ogg",
-  // Video (for transcription)
-  "video/mp4",
-  "video/mpeg",
-  "video/webm",
-  // Documents (for analysis)
-  "application/pdf",
-  "text/plain",
-  "text/markdown",
-  "text/csv",
-  "application/json",
-];
-
-const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25MB for audio/video files
-
 // Use Blob instead of File since File is not available in Node.js environment
 const FileSchema = z.object({
   file: z
     .instanceof(Blob)
-    .refine((file) => file.size <= MAX_FILE_SIZE, {
-      message: "File size should be less than 25MB",
+    .refine((file) => file.size <= 5 * 1024 * 1024, {
+      message: "File size should be less than 5MB",
     })
-    .refine((file) => ALLOWED_FILE_TYPES.includes(file.type), {
-      message: "File type not supported. Allowed types: images (JPEG, PNG, GIF, WebP, SVG), audio (MP3, WAV, M4A, WebM, OGG), video (MP4, WebM), documents (PDF, TXT, MD, CSV, JSON)",
+    // Update the file type based on the kind of files you want to accept
+    .refine((file) => ["image/jpeg", "image/png"].includes(file.type), {
+      message: "File type should be JPEG or PNG",
     }),
 });
 

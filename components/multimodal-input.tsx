@@ -251,7 +251,6 @@ function PureMultimodalInput({
             chatId={chatId}
             selectedVisibilityType={selectedVisibilityType}
             sendMessage={sendMessage}
-            onModelChange={onModelChange}
           />
         )}
 

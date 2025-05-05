@@ -2,16 +2,7 @@
  * Defines which tools are available for each model
  */
 
-export type ModelTool =
-  | "weather"
-  | "documents"
-  | "suggestions"
-  | "images"
-  | "analysis"
-  | "structured-data"
-  | "audio-transcription"
-  | "embeddings"
-  | "similarity";
+export type ModelTool = "weather" | "documents" | "suggestions" | "images";
 
 export type ModelToolsConfig = {
   modelId: string;
@@ -19,9 +10,12 @@ export type ModelToolsConfig = {
   supportsTools: boolean;
 };
 
+const hasOpenAIKey = typeof window === "undefined" 
+  ? Boolean(process.env.OPENAI_API_KEY)
+  : false;
+
 /**
  * Get available tools for a given model
- * Note: Image generation is only supported by Google Gemini 2.5 models currently
  */
 export function getModelTools(modelId: string): ModelTool[] {
   // Reasoning models don't support tools
@@ -29,25 +23,13 @@ export function getModelTools(modelId: string): ModelTool[] {
     return [];
   }
 
-  const baseTools: ModelTool[] = [
-    "weather",
-    "documents",
-    "suggestions",
-    "analysis",
-    "structured-data",
-    "audio-transcription",
-    "embeddings",
-    "similarity",
-  ];
-
-  // Only Google Gemini 2.5 models support image generation
-  const supportsImageGeneration =
-    modelId.includes("gemini-2.5") || modelId.includes("google-gemini-2.5");
-
-  if (supportsImageGeneration) {
+  const baseTools: ModelTool[] = ["weather", "documents", "suggestions"];
+  
+  // Add image generation if OpenAI key is available
+  if (hasOpenAIKey) {
     return [...baseTools, "images"];
   }
-
+  
   return baseTools;
 }
 
@@ -67,11 +49,6 @@ export function getToolDisplayName(tool: ModelTool): string {
     documents: "Documents",
     suggestions: "Suggestions",
     images: "Images",
-    analysis: "Analysis",
-    "structured-data": "Structured Data",
-    "audio-transcription": "Audio",
-    embeddings: "Embeddings",
-    similarity: "Similarity",
   };
   return names[tool];
 }
@@ -85,11 +62,7 @@ export function getToolIcon(tool: ModelTool): string {
     documents: "📄",
     suggestions: "💡",
     images: "🖼️",
-    analysis: "📊",
-    "structured-data": "🔷",
-    "audio-transcription": "🎙️",
-    embeddings: "🔢",
-    similarity: "🔍",
   };
   return icons[tool];
 }
+

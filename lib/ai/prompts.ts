@@ -53,20 +53,20 @@ About the origin of user's request:
 export const systemPrompt = ({
   selectedChatModel,
   requestHints,
+  hasImageGeneration = false,
 }: {
   selectedChatModel: string;
   requestHints: RequestHints;
+  hasImageGeneration?: boolean;
 }) => {
   const requestPrompt = getRequestPromptFromHints(requestHints);
-  
-  const isGemini25FlashImage = selectedChatModel === "google-gemini-2.5-flash-image";
 
-  const imageGenerationPrompt = isGemini25FlashImage
-    ? "\n\nImage Generation: You are using Gemini 2.5 Flash Image which can generate images directly in responses. When users ask to create, generate, or draw images, simply describe the image you're generating in your response. The model will automatically generate the image alongside your text response. Be descriptive and creative!"
-    : "\n\nImage Generation: You can generate images using the generateImage tool with detailed, descriptive prompts when users request images.";
+  const imageGenerationPrompt = hasImageGeneration
+    ? "\n\nImage Generation: You can generate images using DALL-E 3. When users ask to create, generate, or draw images, use the generateImage tool with detailed, descriptive prompts."
+    : "\n\nImage Generation: Image generation is currently unavailable (requires OpenAI API key configuration). If users request image generation, politely inform them that this feature is not currently available.";
 
   if (selectedChatModel === "chat-model-reasoning") {
-    return `${regularPrompt}\n\n${requestPrompt}`;
+    return `${regularPrompt}\n\n${requestPrompt}${imageGenerationPrompt}`;
   }
 
   return `${regularPrompt}\n\n${requestPrompt}\n\n${artifactsPrompt}${imageGenerationPrompt}`;

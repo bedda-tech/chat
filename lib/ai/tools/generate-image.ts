@@ -1,35 +1,33 @@
 import { experimental_generateImage as generateImage, tool } from "ai";
-import { google } from "@ai-sdk/google";
+import { openai } from "@ai-sdk/openai";
 import { z } from "zod";
 
-/**
- * Image generation tool using Google Gemini 2.5 Flash Image
- * Routed through Vercel AI Gateway via GOOGLE_GENERATIVE_AI_API_KEY
- */
 export const generateImageTool = () =>
   tool({
     description:
       "Generate an image based on a detailed text prompt. Use this when the user explicitly asks to create, generate, draw, or make an image, picture, photo, or illustration.",
-    inputSchema: z.object({
+    parameters: z.object({
       prompt: z
         .string()
         .describe(
           "A detailed, descriptive prompt for the image. Be specific about style, composition, colors, mood, and subjects."
         ),
-      aspectRatio: z
-        .enum(["1:1", "16:9", "9:16", "3:4", "4:3"])
+      size: z
+        .enum(["1024x1024", "1792x1024", "1024x1792"])
         .optional()
-        .default("1:1")
+        .default("1024x1024")
         .describe(
-          "Image aspect ratio: 1:1 (square), 16:9 (landscape), 9:16 (portrait), 3:4 or 4:3"
+          "Image size: 1024x1024 (square), 1792x1024 (landscape), or 1024x1792 (portrait)"
         ),
     }),
-    execute: async ({ prompt, aspectRatio = "1:1" }) => {
+    execute: async ({ prompt, size = "1024x1024" }) => {
       try {
         const { image } = await generateImage({
-          model: google.imageModel("gemini-2.5-flash-image"),
+          model: openai.imageModel("dall-e-3"),
           prompt,
-          aspectRatio,
+          size,
+          n: 1,
+          quality: "standard",
         });
 
         return {
@@ -39,8 +37,7 @@ export const generateImageTool = () =>
             mediaType: "image/png",
           },
           prompt,
-          aspectRatio,
-          model: "gemini-2.5-flash-image",
+          size,
         };
       } catch (error) {
         console.error("Image generation error:", error);

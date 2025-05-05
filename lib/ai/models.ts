@@ -149,12 +149,6 @@ export const chatModels: ChatModel[] = [
 
   // Google Generative AI Models
   {
-    id: "google-gemini-2.5-flash-image",
-    name: "Gemini 2.5 Flash Image ⭐",
-    description:
-      "Only model with image generation support! Multimodal model with text and image capabilities",
-  },
-  {
     id: "google-gemini-2.0-flash-exp",
     name: "Gemini 2.0 Flash Experimental",
     description: "Latest experimental Gemini model with enhanced speed",

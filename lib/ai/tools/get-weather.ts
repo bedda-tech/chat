@@ -7,9 +7,7 @@ async function geocodeCity(city: string): Promise<{ latitude: number; longitude:
       `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`
     );
     
-    if (!response.ok) {
-      return null;
-    }
+    if (!response.ok) return null;
     
     const data = await response.json();
     
@@ -38,38 +36,23 @@ export const getWeather = tool({
       city: z.string().describe("City name (e.g., 'San Francisco', 'New York', 'London')"),
     }),
   ]),
-  async *execute(input) {
+  execute: async (input) => {
     let latitude: number;
     let longitude: number;
-    let cityName: string | undefined;
 
     if ("city" in input) {
-      // Stream status update
-      yield {
-        status: 'loading' as const,
-        message: `Looking up coordinates for ${input.city}...`,
-      };
-      
       const coords = await geocodeCity(input.city);
       if (!coords) {
         return {
-          status: 'error' as const,
           error: `Could not find coordinates for "${input.city}". Please check the city name.`,
         };
       }
       latitude = coords.latitude;
       longitude = coords.longitude;
-      cityName = input.city;
     } else {
       latitude = input.latitude;
       longitude = input.longitude;
     }
-
-    // Stream status update
-    yield {
-      status: 'loading' as const,
-      message: `Fetching weather data for coordinates (${latitude.toFixed(2)}, ${longitude.toFixed(2)})...`,
-    };
 
     const response = await fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m&hourly=temperature_2m&daily=sunrise,sunset&timezone=auto`
@@ -77,15 +60,10 @@ export const getWeather = tool({
 
     const weatherData = await response.json();
     
-    if (cityName) {
-      weatherData.cityName = cityName;
+    if ("city" in input) {
+      weatherData.cityName = input.city;
     }
     
-    // Stream final result
-    yield {
-      status: 'success' as const,
-      message: `Weather data retrieved successfully${cityName ? ` for ${cityName}` : ''}`,
-      data: weatherData,
-    };
+    return weatherData;
   },
 });

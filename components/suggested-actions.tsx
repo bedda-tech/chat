@@ -11,75 +11,41 @@ type SuggestedActionsProps = {
   chatId: string;
   sendMessage: UseChatHelpers<ChatMessage>["sendMessage"];
   selectedVisibilityType: VisibilityType;
-  onModelChange?: (modelId: string) => void;
 };
 
-type SuggestionConfig = {
-  text: string;
-  modelId?: string;
-  emoji: string;
-};
-
-function PureSuggestedActions({
-  chatId,
-  sendMessage,
-  onModelChange,
-}: SuggestedActionsProps) {
-  const suggestedActions: SuggestionConfig[] = [
-    {
-      emoji: "🎨",
-      text: "Generate a live Corallium rubrum coral from the reefs of Sciacca, Sicily, Italy",
-      modelId: "google-gemini-2.5-flash-image",
-    },
-    {
-      emoji: "💻",
-      text: "Write a React component with TypeScript for a todo list",
-      modelId: "openai-gpt-5-codex",
-    },
-    {
-      emoji: "🧠",
-      text: "Explain quantum computing using deep reasoning",
-      modelId: "deepseek-reasoner",
-    },
-    {
-      emoji: "🌤️",
-      text: "What's the weather in San Francisco right now?",
-    },
+function PureSuggestedActions({ chatId, sendMessage }: SuggestedActionsProps) {
+  const suggestedActions = [
+    "What are the advantages of using Next.js?",
+    "Write code to demonstrate Dijkstra's algorithm",
+    "Help me write an essay about Silicon Valley",
+    "What is the weather in San Francisco?",
   ];
 
   return (
     <div
-      className="grid w-full gap-2 md:grid-cols-2 lg:gap-2.5"
+      className="grid w-full gap-2 sm:grid-cols-2"
       data-testid="suggested-actions"
     >
-      {suggestedActions.map((config, index) => (
+      {suggestedActions.map((suggestedAction, index) => (
         <motion.div
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
           initial={{ opacity: 0, y: 20 }}
-          key={config.text}
+          key={suggestedAction}
           transition={{ delay: 0.05 * index }}
         >
           <Suggestion
-            className="h-auto w-full whitespace-normal p-2.5 text-left text-sm md:p-2 md:text-xs lg:p-3 lg:text-sm xl:text-base"
+            className="h-auto w-full whitespace-normal p-3 text-left"
             onClick={(suggestion) => {
-              // If a specific model is recommended, switch to it
-              if (config.modelId && onModelChange) {
-                onModelChange(config.modelId);
-              }
-
               window.history.replaceState({}, "", `/chat/${chatId}`);
               sendMessage({
                 role: "user",
                 parts: [{ type: "text", text: suggestion }],
               });
             }}
-            suggestion={config.text}
+            suggestion={suggestedAction}
           >
-            <span className="mr-2 text-base md:text-sm lg:text-base xl:text-lg">
-              {config.emoji}
-            </span>
-            {config.text}
+            {suggestedAction}
           </Suggestion>
         </motion.div>
       ))}
