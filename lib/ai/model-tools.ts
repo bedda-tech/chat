@@ -2,7 +2,7 @@
  * Defines which tools are available for each model
  */
 
-export type ModelTool = "weather" | "documents" | "suggestions" | "images";
+export type ModelTool = "weather" | "documents" | "suggestions" | "images" | "analysis";
 
 export type ModelToolsConfig = {
   modelId: string;
@@ -23,7 +23,7 @@ export function getModelTools(modelId: string): ModelTool[] {
     return [];
   }
 
-  const baseTools: ModelTool[] = ["weather", "documents", "suggestions"];
+  const baseTools: ModelTool[] = ["weather", "documents", "suggestions", "analysis"];
   
   // Add image generation if OpenAI key is available
   if (hasOpenAIKey) {
@@ -49,6 +49,7 @@ export function getToolDisplayName(tool: ModelTool): string {
     documents: "Documents",
     suggestions: "Suggestions",
     images: "Images",
+    analysis: "Analysis",
   };
   return names[tool];
 }
@@ -62,6 +63,7 @@ export function getToolIcon(tool: ModelTool): string {
     documents: "📄",
     suggestions: "💡",
     images: "🖼️",
+    analysis: "📊",
   };
   return icons[tool];
 }

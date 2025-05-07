@@ -312,6 +312,102 @@ const PurePreviewMessage = ({
               );
             }
 
+            if (type.startsWith("tool-") && type.includes("analyzeData")) {
+              const toolPart = part as any;
+              const { toolCallId, state } = toolPart;
+
+              return (
+                <Tool defaultOpen={true} key={toolCallId}>
+                  <ToolHeader state={state} type="tool-analyzeData" />
+                  <ToolContent>
+                    {state === "input-available" && toolPart.input && (
+                      <ToolInput input={toolPart.input} />
+                    )}
+                    {state === "output-available" && toolPart.output && (
+                      <div className="space-y-4 p-4">
+                        <h4 className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
+                          Analysis Results
+                        </h4>
+                        {toolPart.output.success && toolPart.output.analysis ? (
+                          <div className="space-y-4">
+                            {/* Summary */}
+                            {toolPart.output.analysis.summary && (
+                              <div className="rounded-lg border border-border bg-muted/30 p-3">
+                                <div className="mb-2 font-medium text-sm">Summary</div>
+                                <div className="text-foreground/80 text-sm">
+                                  {toolPart.output.analysis.summary}
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Findings */}
+                            {toolPart.output.analysis.findings && toolPart.output.analysis.findings.length > 0 && (
+                              <div className="space-y-2">
+                                <div className="font-medium text-sm">Key Findings</div>
+                                {toolPart.output.analysis.findings.map((finding: any) => (
+                                  <div
+                                    key={`${finding.title}-${finding.confidence}`}
+                                    className="rounded-lg border border-border bg-muted/30 p-3"
+                                  >
+                                    <div className="mb-1 flex items-center justify-between">
+                                      <div className="font-medium text-sm">{finding.title}</div>
+                                      <div className="rounded-full bg-primary/10 px-2 py-0.5 font-medium text-primary text-xs">
+                                        {finding.confidence}% confidence
+                                      </div>
+                                    </div>
+                                    <div className="text-foreground/70 text-sm">
+                                      {finding.description}
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+
+                            {/* Recommendations */}
+                            {toolPart.output.analysis.recommendations && toolPart.output.analysis.recommendations.length > 0 && (
+                              <div className="space-y-2">
+                                <div className="font-medium text-sm">Recommendations</div>
+                                <ul className="space-y-1.5 text-foreground/80 text-sm">
+                                  {toolPart.output.analysis.recommendations.map(
+                                    (rec: string) => (
+                                      <li key={rec} className="flex gap-2">
+                                        <span className="text-primary">•</span>
+                                        {rec}
+                                      </li>
+                                    )
+                                  )}
+                                </ul>
+                              </div>
+                            )}
+
+                            {/* Metadata */}
+                            {toolPart.output.analysis.metadata && (
+                              <div className="flex gap-4 text-muted-foreground text-xs">
+                                {toolPart.output.analysis.metadata.processingTime && (
+                                  <div>
+                                    Processing time: {toolPart.output.analysis.metadata.processingTime}
+                                  </div>
+                                )}
+                                {toolPart.output.analysis.metadata.dataLength !== undefined && (
+                                  <div>
+                                    Data length: {toolPart.output.analysis.metadata.dataLength} chars
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="rounded-md bg-destructive/10 p-3 text-destructive text-sm">
+                            {toolPart.output.error || "Failed to analyze data"}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </ToolContent>
+                </Tool>
+              );
+            }
+
             return null;
           })}
 

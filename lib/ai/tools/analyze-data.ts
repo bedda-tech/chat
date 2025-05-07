@@ -10,7 +10,7 @@ export const analyzeDataTool = () =>
   tool({
     description:
       "Analyze data, text, or information and provide structured insights. Use this when users want to analyze trends, extract insights, or get structured analysis of information.",
-    inputSchema: z.object({
+    parameters: z.object({
       data: z.string().describe("The data or text to analyze"),
       analysisType: z
         .enum(["sentiment", "summary", "trends", "key-points", "statistics"])

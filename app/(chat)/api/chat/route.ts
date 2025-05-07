@@ -22,6 +22,7 @@ import { entitlementsByUserType } from "@/lib/ai/entitlements";
 import type { ChatModel } from "@/lib/ai/models";
 import { type RequestHints, systemPrompt } from "@/lib/ai/prompts";
 import { myProvider } from "@/lib/ai/providers";
+import { analyzeDataTool } from "@/lib/ai/tools/analyze-data";
 import { createDocument } from "@/lib/ai/tools/create-document";
 import { generateImageTool } from "@/lib/ai/tools/generate-image";
 import { getWeather } from "@/lib/ai/tools/get-weather";
@@ -183,6 +184,7 @@ export async function POST(request: Request) {
       "createDocument",
       "updateDocument",
       "requestSuggestions",
+      "analyzeData",
     ];
     
     const activeTools =
@@ -203,6 +205,7 @@ export async function POST(request: Request) {
             session,
             dataStream,
           }),
+          analyzeData: analyzeDataTool(),
         };
 
         // Only add image generation if OpenAI API key is configured
