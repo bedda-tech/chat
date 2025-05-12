@@ -10,12 +10,10 @@ export type ModelToolsConfig = {
   supportsTools: boolean;
 };
 
-const hasOpenAIKey = typeof window === "undefined" 
-  ? Boolean(process.env.OPENAI_API_KEY)
-  : false;
-
 /**
  * Get available tools for a given model
+ * Note: This shows potential tools. Actual availability (e.g., images requiring OpenAI key)
+ * is checked server-side in the API route.
  */
 export function getModelTools(modelId: string): ModelTool[] {
   // Reasoning models don't support tools
@@ -23,14 +21,9 @@ export function getModelTools(modelId: string): ModelTool[] {
     return [];
   }
 
-  const baseTools: ModelTool[] = ["weather", "documents", "suggestions", "analysis"];
-  
-  // Add image generation if OpenAI key is available
-  if (hasOpenAIKey) {
-    return [...baseTools, "images"];
-  }
-  
-  return baseTools;
+  // All non-reasoning models can potentially use all tools
+  // The server will handle actual availability (e.g., OpenAI API key for images)
+  return ["weather", "documents", "suggestions", "analysis", "images"];
 }
 
 /**
