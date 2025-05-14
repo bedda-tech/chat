@@ -53,20 +53,17 @@ About the origin of user's request:
 export const systemPrompt = ({
   selectedChatModel,
   requestHints,
-  hasImageGeneration = false,
 }: {
   selectedChatModel: string;
   requestHints: RequestHints;
-  hasImageGeneration?: boolean;
 }) => {
   const requestPrompt = getRequestPromptFromHints(requestHints);
 
-  const imageGenerationPrompt = hasImageGeneration
-    ? "\n\nImage Generation: You can generate images using DALL-E 3. When users ask to create, generate, or draw images, use the generateImage tool with detailed, descriptive prompts."
-    : "\n\nImage Generation: Image generation is currently unavailable (requires OpenAI API key configuration). If users request image generation, politely inform them that this feature is not currently available.";
+  const imageGenerationPrompt =
+    "\n\nImage Generation: You can generate images using Google Gemini 2.5 Flash Image through the Vercel AI Gateway. When users ask to create, generate, or draw images, use the generateImage tool with detailed, descriptive prompts.";
 
   if (selectedChatModel === "chat-model-reasoning") {
-    return `${regularPrompt}\n\n${requestPrompt}${imageGenerationPrompt}`;
+    return `${regularPrompt}\n\n${requestPrompt}`;
   }
 
   return `${regularPrompt}\n\n${requestPrompt}\n\n${artifactsPrompt}${imageGenerationPrompt}`;

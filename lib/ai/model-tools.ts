@@ -2,7 +2,12 @@
  * Defines which tools are available for each model
  */
 
-export type ModelTool = "weather" | "documents" | "suggestions" | "images" | "analysis";
+export type ModelTool =
+  | "weather"
+  | "documents"
+  | "suggestions"
+  | "images"
+  | "analysis";
 
 export type ModelToolsConfig = {
   modelId: string;
@@ -60,4 +65,3 @@ export function getToolIcon(tool: ModelTool): string {
   };
   return icons[tool];
 }
-

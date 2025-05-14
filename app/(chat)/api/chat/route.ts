@@ -175,28 +175,25 @@ export async function POST(request: Request) {
 
     let finalMergedUsage: AppUsage | undefined;
 
-    // Check if image generation is available (requires OpenAI API key)
-    const hasOpenAIKey = Boolean(process.env.OPENAI_API_KEY);
-    
-    // Build active tools list based on model capabilities and configuration
-    const baseActiveTools = [
+    // Build active tools list based on model capabilities
+    // All tools go through Vercel AI Gateway which handles provider credentials
+    const allTools = [
       "getWeather",
       "createDocument",
       "updateDocument",
       "requestSuggestions",
       "analyzeData",
+      "generateImage",
     ];
     
     const activeTools =
       selectedChatModel === "chat-model-reasoning"
         ? []
-        : hasOpenAIKey
-          ? [...baseActiveTools, "generateImage"]
-          : baseActiveTools;
+        : allTools;
 
     const stream = createUIMessageStream({
       execute: ({ writer: dataStream }) => {
-        // Build tools object conditionally
+        // Build tools object - all tools use Vercel AI Gateway
         const tools: Record<string, any> = {
           getWeather,
           createDocument: createDocument({ session, dataStream }),
@@ -206,19 +203,14 @@ export async function POST(request: Request) {
             dataStream,
           }),
           analyzeData: analyzeDataTool(),
+          generateImage: generateImageTool(),
         };
-
-        // Only add image generation if OpenAI API key is configured
-        if (hasOpenAIKey) {
-          tools.generateImage = generateImageTool();
-        }
 
         const result = streamText({
           model: myProvider.languageModel(selectedChatModel),
           system: systemPrompt({ 
             selectedChatModel, 
             requestHints,
-            hasImageGeneration: hasOpenAIKey,
           }),
           messages: convertToModelMessages(uiMessages),
           stopWhen: stepCountIs(5),
