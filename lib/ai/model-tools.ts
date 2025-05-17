@@ -17,8 +17,7 @@ export type ModelToolsConfig = {
 
 /**
  * Get available tools for a given model
- * Note: This shows potential tools. Actual availability (e.g., images requiring OpenAI key)
- * is checked server-side in the API route.
+ * Note: Image generation is only supported by Google Gemini 2.5 models currently
  */
 export function getModelTools(modelId: string): ModelTool[] {
   // Reasoning models don't support tools
@@ -26,9 +25,18 @@ export function getModelTools(modelId: string): ModelTool[] {
     return [];
   }
 
-  // All non-reasoning models can potentially use all tools
-  // The server will handle actual availability (e.g., OpenAI API key for images)
-  return ["weather", "documents", "suggestions", "analysis", "images"];
+  const baseTools: ModelTool[] = ["weather", "documents", "suggestions", "analysis"];
+  
+  // Only Google Gemini 2.5 models support image generation
+  const supportsImageGeneration = 
+    modelId.includes("gemini-2.5") || 
+    modelId.includes("google-gemini-2.5");
+  
+  if (supportsImageGeneration) {
+    return [...baseTools, "images"];
+  }
+
+  return baseTools;
 }
 
 /**

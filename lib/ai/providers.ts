@@ -62,6 +62,7 @@ export const myProvider = isTestEnvironment
         "mistral-pixtral-12b-2409": gateway.languageModel("mistral/pixtral-12b-2409"),
 
         // Google Generative AI Models
+        "google-gemini-2.5-flash-image": gateway.languageModel("google/gemini-2.5-flash-image-preview"),
         "google-gemini-2.0-flash-exp": gateway.languageModel("google/gemini-2.0-flash-exp"),
         "google-gemini-1.5-flash": gateway.languageModel("google/gemini-1.5-flash"),
         "google-gemini-1.5-pro": gateway.languageModel("google/gemini-1.5-pro"),
