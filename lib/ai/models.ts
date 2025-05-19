@@ -151,7 +151,8 @@ export const chatModels: ChatModel[] = [
   {
     id: "google-gemini-2.5-flash-image",
     name: "Gemini 2.5 Flash Image ⭐",
-    description: "Only model with image generation support! Multimodal model with text and image capabilities",
+    description:
+      "Only model with image generation support! Multimodal model with text and image capabilities",
   },
   {
     id: "google-gemini-2.0-flash-exp",

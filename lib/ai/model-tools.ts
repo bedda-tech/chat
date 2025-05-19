@@ -25,13 +25,17 @@ export function getModelTools(modelId: string): ModelTool[] {
     return [];
   }
 
-  const baseTools: ModelTool[] = ["weather", "documents", "suggestions", "analysis"];
-  
+  const baseTools: ModelTool[] = [
+    "weather",
+    "documents",
+    "suggestions",
+    "analysis",
+  ];
+
   // Only Google Gemini 2.5 models support image generation
-  const supportsImageGeneration = 
-    modelId.includes("gemini-2.5") || 
-    modelId.includes("google-gemini-2.5");
-  
+  const supportsImageGeneration =
+    modelId.includes("gemini-2.5") || modelId.includes("google-gemini-2.5");
+
   if (supportsImageGeneration) {
     return [...baseTools, "images"];
   }

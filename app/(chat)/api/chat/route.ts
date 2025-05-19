@@ -177,19 +177,22 @@ export async function POST(request: Request) {
 
     // Build active tools list based on model capabilities
     // All tools go through Vercel AI Gateway which handles provider credentials
+    const isGemini25FlashImage = selectedChatModel === "google-gemini-2.5-flash-image";
+    
     const allTools = [
       "getWeather",
       "createDocument",
       "updateDocument",
       "requestSuggestions",
       "analyzeData",
-      "generateImage",
     ];
     
+    // Gemini 2.5 Flash Image does NOT support function calling at all
+    // It generates images via responseModalities in the model response itself
     const activeTools =
-      selectedChatModel === "chat-model-reasoning"
+      selectedChatModel === "chat-model-reasoning" || isGemini25FlashImage
         ? []
-        : allTools;
+        : [...allTools, "generateImage"];
 
     const stream = createUIMessageStream({
       execute: ({ writer: dataStream }) => {
@@ -205,7 +208,7 @@ export async function POST(request: Request) {
           analyzeData: analyzeDataTool(),
           generateImage: generateImageTool(),
         };
-
+        
         const result = streamText({
           model: myProvider.languageModel(selectedChatModel),
           system: systemPrompt({ 
@@ -214,9 +217,20 @@ export async function POST(request: Request) {
           }),
           messages: convertToModelMessages(uiMessages),
           stopWhen: stepCountIs(5),
-          experimental_activeTools: activeTools,
+          // Only pass tools if model supports them
+          ...(activeTools.length > 0 && {
+            experimental_activeTools: activeTools,
+            tools,
+          }),
           experimental_transform: smoothStream({ chunking: "word" }),
-          tools,
+          // Enable image generation for Gemini 2.5 Flash Image
+          ...(isGemini25FlashImage && {
+            providerOptions: {
+              google: { 
+                responseModalities: ['TEXT', 'IMAGE'] 
+              },
+            },
+          }),
           experimental_telemetry: {
             isEnabled: isProductionEnvironment,
             functionId: "stream-text",
@@ -226,6 +240,7 @@ export async function POST(request: Request) {
               selectedModel: selectedChatModel,
               visibilityType: selectedVisibilityType,
               toolsEnabled: selectedChatModel !== "chat-model-reasoning",
+              imageGenerationEnabled: isGemini25FlashImage,
             },
           },
           onFinish: async ({ usage }) => {
