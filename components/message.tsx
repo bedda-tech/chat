@@ -46,8 +46,10 @@ const PurePreviewMessage = ({
 }) => {
   const [mode, setMode] = useState<"view" | "edit">("view");
 
+  // Only show attachment previews for user uploads, not AI-generated images
   const attachmentsFromMessage = message.parts.filter(
-    (part) => part.type === "file"
+    (part) => part.type === "file" && 
+    (message.role === "user" || !part.mediaType?.startsWith("image/"))
   );
 
   useDataStream();
@@ -93,16 +95,19 @@ const PurePreviewMessage = ({
               className="flex flex-row justify-end gap-2"
               data-testid={"message-attachments"}
             >
-              {attachmentsFromMessage.map((attachment) => (
-                <PreviewAttachment
-                  attachment={{
-                    name: attachment.filename ?? "file",
-                    contentType: attachment.mediaType,
-                    url: attachment.url,
-                  }}
-                  key={attachment.url}
-                />
-              ))}
+              {attachmentsFromMessage.map((attachment) => {
+                const filePart = attachment as any;
+                return (
+                  <PreviewAttachment
+                    attachment={{
+                      name: filePart.filename ?? "file",
+                      contentType: filePart.mediaType,
+                      url: filePart.url,
+                    }}
+                    key={filePart.url}
+                  />
+                );
+              })}
             </div>
           )}
 
