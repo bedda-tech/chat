@@ -20,15 +20,15 @@ type SuggestionConfig = {
   emoji: string;
 };
 
-function PureSuggestedActions({ 
-  chatId, 
+function PureSuggestedActions({
+  chatId,
   sendMessage,
   onModelChange,
 }: SuggestedActionsProps) {
   const suggestedActions: SuggestionConfig[] = [
     {
       emoji: "🎨",
-      text: "Generate a beautiful sunset image over mountains",
+      text: "Generate a beautiful vibrant coral from the reefs of sciacca.",
       modelId: "google-gemini-2.5-flash-image",
     },
     {
@@ -67,7 +67,7 @@ function PureSuggestedActions({
               if (config.modelId && onModelChange) {
                 onModelChange(config.modelId);
               }
-              
+
               window.history.replaceState({}, "", `/chat/${chatId}`);
               sendMessage({
                 role: "user",

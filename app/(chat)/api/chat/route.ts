@@ -28,6 +28,10 @@ import { generateImageTool } from "@/lib/ai/tools/generate-image";
 import { getWeather } from "@/lib/ai/tools/get-weather";
 import { requestSuggestions } from "@/lib/ai/tools/request-suggestions";
 import { updateDocument } from "@/lib/ai/tools/update-document";
+import {
+  buildGatewayConfig,
+  getThinkingBudget,
+} from "@/lib/ai/gateway-config";
 import { isProductionEnvironment } from "@/lib/constants";
 import {
   createStreamId,
@@ -209,6 +213,30 @@ export async function POST(request: Request) {
           generateImage: generateImageTool(),
         };
         
+        // Get the actual gateway model ID
+        const gatewayModelId = myProvider.languageModel(selectedChatModel).modelId || "";
+        
+        // Build provider options with gateway config and fallback
+        const gatewayConfig = buildGatewayConfig(gatewayModelId);
+        const providerOptions: Record<string, any> = {
+          gateway: gatewayConfig,
+        };
+        
+        // Add image generation for Gemini 2.5 Flash Image
+        if (isGemini25FlashImage) {
+          providerOptions.google = {
+            responseModalities: ['TEXT', 'IMAGE']
+          };
+        }
+        
+        // Add thinking budget for Anthropic models (helps control extended reasoning)
+        const thinkingBudget = getThinkingBudget(gatewayModelId);
+        if (thinkingBudget) {
+          providerOptions.anthropic = {
+            thinkingBudget,
+          };
+        }
+        
         const result = streamText({
           model: myProvider.languageModel(selectedChatModel),
           system: systemPrompt({ 
@@ -223,14 +251,7 @@ export async function POST(request: Request) {
             tools,
           }),
           experimental_transform: smoothStream({ chunking: "word" }),
-          // Enable image generation for Gemini 2.5 Flash Image
-          ...(isGemini25FlashImage && {
-            providerOptions: {
-              google: { 
-                responseModalities: ['TEXT', 'IMAGE'] 
-              },
-            },
-          }),
+          providerOptions,
           experimental_telemetry: {
             isEnabled: isProductionEnvironment,
             functionId: "stream-text",
@@ -243,13 +264,38 @@ export async function POST(request: Request) {
               imageGenerationEnabled: isGemini25FlashImage,
             },
           },
-          onFinish: async ({ usage }) => {
+          onFinish: async ({ usage, response }) => {
             try {
               const providers = await getTokenlensCatalog();
               const modelId =
                 myProvider.languageModel(selectedChatModel).modelId;
+              
+              // Extract provider metadata from response
+              const providerMetadata = response.headers?.['x-vercel-ai-provider-metadata'];
+              let gatewayMetadata: any = null;
+              
+              if (providerMetadata) {
+                try {
+                  const metadata = JSON.parse(providerMetadata);
+                  gatewayMetadata = metadata.gateway;
+                  
+                  // Log gateway routing and cost info for debugging
+                  if (gatewayMetadata) {
+                    console.log('AI Gateway Metadata:', {
+                      cost: gatewayMetadata.cost,
+                      routing: gatewayMetadata.routing,
+                    });
+                  }
+                } catch (parseErr) {
+                  console.warn('Failed to parse provider metadata', parseErr);
+                }
+              }
+              
               if (!modelId) {
-                finalMergedUsage = usage;
+                finalMergedUsage = { 
+                  ...usage, 
+                  ...(gatewayMetadata?.cost && { gatewayCost: gatewayMetadata.cost }),
+                };
                 dataStream.write({
                   type: "data-usage",
                   data: finalMergedUsage,
@@ -258,7 +304,10 @@ export async function POST(request: Request) {
               }
 
               if (!providers) {
-                finalMergedUsage = usage;
+                finalMergedUsage = { 
+                  ...usage, 
+                  ...(gatewayMetadata?.cost && { gatewayCost: gatewayMetadata.cost }),
+                };
                 dataStream.write({
                   type: "data-usage",
                   data: finalMergedUsage,
@@ -267,7 +316,12 @@ export async function POST(request: Request) {
               }
 
               const summary = getUsage({ modelId, usage, providers });
-              finalMergedUsage = { ...usage, ...summary, modelId } as AppUsage;
+              finalMergedUsage = { 
+                ...usage, 
+                ...summary, 
+                modelId,
+                ...(gatewayMetadata?.cost && { gatewayCost: gatewayMetadata.cost }),
+              } as AppUsage;
               dataStream.write({ type: "data-usage", data: finalMergedUsage });
             } catch (err) {
               console.warn("TokenLens enrichment failed", err);
@@ -314,16 +368,18 @@ export async function POST(request: Request) {
       },
     });
 
-    // const streamContext = getStreamContext();
+    // Enable resumable streams if Redis is configured
+    const streamContext = getStreamContext();
 
-    // if (streamContext) {
-    //   return new Response(
-    //     await streamContext.resumableStream(streamId, () =>
-    //       stream.pipeThrough(new JsonToSseTransformStream())
-    //     )
-    //   );
-    // }
+    if (streamContext) {
+      return new Response(
+        await streamContext.resumableStream(streamId, () =>
+          stream.pipeThrough(new JsonToSseTransformStream())
+        )
+      );
+    }
 
+    // Fallback to regular streaming if resumable streams are not available
     return new Response(stream.pipeThrough(new JsonToSseTransformStream()));
   } catch (error) {
     const vercelId = request.headers.get("x-vercel-id");
