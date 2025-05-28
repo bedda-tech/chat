@@ -10,7 +10,7 @@ export const generateStructuredDataTool = () =>
   tool({
     description:
       "Generate structured data in JSON format based on a schema. Use this when the user needs data in a specific format like API responses, configuration files, or structured reports.",
-    inputSchema: z.object({
+    parameters: z.object({
       dataType: z
         .enum([
           "user-profile",

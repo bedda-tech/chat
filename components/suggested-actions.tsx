@@ -28,7 +28,7 @@ function PureSuggestedActions({
   const suggestedActions: SuggestionConfig[] = [
     {
       emoji: "🎨",
-      text: "Generate a beautiful vibrant coral from the reefs of sciacca.",
+      text: "Generate a live Corallium rubrum coral from the reefs of Sciacca, Sicily, Italy",
       modelId: "google-gemini-2.5-flash-image",
     },
     {

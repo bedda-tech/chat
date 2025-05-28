@@ -25,6 +25,7 @@ import { myProvider } from "@/lib/ai/providers";
 import { analyzeDataTool } from "@/lib/ai/tools/analyze-data";
 import { createDocument } from "@/lib/ai/tools/create-document";
 import { generateImageTool } from "@/lib/ai/tools/generate-image";
+import { generateStructuredDataTool } from "@/lib/ai/tools/generate-structured-data";
 import { getWeather } from "@/lib/ai/tools/get-weather";
 import { requestSuggestions } from "@/lib/ai/tools/request-suggestions";
 import { updateDocument } from "@/lib/ai/tools/update-document";
@@ -32,6 +33,7 @@ import {
   buildGatewayConfig,
   getThinkingBudget,
 } from "@/lib/ai/gateway-config";
+import { getModelConfig } from "@/lib/ai/model-config";
 import { isProductionEnvironment } from "@/lib/constants";
 import {
   createStreamId,
@@ -189,6 +191,7 @@ export async function POST(request: Request) {
       "updateDocument",
       "requestSuggestions",
       "analyzeData",
+      "generateStructuredData",
     ];
     
     // Gemini 2.5 Flash Image does NOT support function calling at all
@@ -211,10 +214,14 @@ export async function POST(request: Request) {
           }),
           analyzeData: analyzeDataTool(),
           generateImage: generateImageTool(),
+          generateStructuredData: generateStructuredDataTool(),
         };
         
         // Get the actual gateway model ID
         const gatewayModelId = myProvider.languageModel(selectedChatModel).modelId || "";
+        
+        // Get model-specific configuration
+        const modelConfig = getModelConfig(gatewayModelId);
         
         // Build provider options with gateway config and fallback
         const gatewayConfig = buildGatewayConfig(gatewayModelId);
@@ -244,7 +251,10 @@ export async function POST(request: Request) {
             requestHints,
           }),
           messages: convertToModelMessages(uiMessages),
-          stopWhen: stepCountIs(5),
+          // Use model-specific maxSteps configuration
+          stopWhen: stepCountIs(modelConfig.maxSteps),
+          // Use model-specific temperature if available
+          ...(modelConfig.temperature && { temperature: modelConfig.temperature }),
           // Only pass tools if model supports them
           ...(activeTools.length > 0 && {
             experimental_activeTools: activeTools,

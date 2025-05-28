@@ -20,6 +20,7 @@ import {
   getToolDisplayName,
   getToolIcon,
 } from "@/lib/ai/model-tools";
+import { getModelIdealUse } from "@/lib/ai/model-config";
 import { cn } from "@/lib/utils";
 import { CheckCircleFillIcon, ChevronDownIcon } from "./icons";
 
@@ -177,6 +178,7 @@ export function ModelSelector({
           {filteredModels.map((chatModel) => {
             const { id } = chatModel;
             const modelTools = getModelTools(id);
+            const idealUse = getModelIdealUse(id);
 
             return (
               <DropdownMenuItem
@@ -204,6 +206,11 @@ export function ModelSelector({
                     <div className="line-clamp-2 text-muted-foreground text-xs">
                       {chatModel.description}
                     </div>
+                    {idealUse && (
+                      <div className="text-[10px] text-muted-foreground/70 italic">
+                        Best for: {idealUse}
+                      </div>
+                    )}
                     {modelTools.length > 0 && (
                       <div className="flex flex-wrap gap-1">
                         {modelTools.map((tool) => (
