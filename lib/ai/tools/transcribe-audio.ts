@@ -12,7 +12,7 @@ export const transcribeAudioTool = () =>
   tool({
     description:
       "Transcribe audio or video files to text. Supports common formats like MP3, MP4, WAV, M4A, WebM. Use this when users upload audio/video files or request transcription.",
-    inputSchema: z.object({
+    parameters: z.object({
       audioUrl: z
         .string()
         .url()

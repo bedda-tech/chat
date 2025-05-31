@@ -28,6 +28,7 @@ import { generateImageTool } from "@/lib/ai/tools/generate-image";
 import { generateStructuredDataTool } from "@/lib/ai/tools/generate-structured-data";
 import { getWeather } from "@/lib/ai/tools/get-weather";
 import { requestSuggestions } from "@/lib/ai/tools/request-suggestions";
+import { transcribeAudioTool } from "@/lib/ai/tools/transcribe-audio";
 import { updateDocument } from "@/lib/ai/tools/update-document";
 import {
   buildGatewayConfig,
@@ -192,6 +193,7 @@ export async function POST(request: Request) {
       "requestSuggestions",
       "analyzeData",
       "generateStructuredData",
+      "transcribeAudio",
     ];
     
     // Gemini 2.5 Flash Image does NOT support function calling at all
@@ -215,6 +217,7 @@ export async function POST(request: Request) {
           analyzeData: analyzeDataTool(),
           generateImage: generateImageTool(),
           generateStructuredData: generateStructuredDataTool(),
+          transcribeAudio: transcribeAudioTool(),
         };
         
         // Get the actual gateway model ID
