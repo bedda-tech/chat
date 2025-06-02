@@ -10,7 +10,7 @@ export const generateTextEmbeddingsTool = () =>
   tool({
     description:
       "Generate vector embeddings for text to enable semantic search, similarity comparison, and clustering. Useful for finding similar documents, grouping related content, or building search functionality.",
-    inputSchema: z.object({
+    parameters: z.object({
       texts: z
         .array(z.string())
         .min(1)
@@ -85,7 +85,7 @@ export const compareTextSimilarityTool = () =>
   tool({
     description:
       "Compare semantic similarity between two or more texts using embeddings. Returns similarity scores from 0 (completely different) to 1 (identical). Useful for finding duplicate content, matching queries to documents, or clustering similar items.",
-    inputSchema: z.object({
+    parameters: z.object({
       texts: z
         .array(z.string())
         .min(2)

@@ -9,7 +9,9 @@ export type ModelTool =
   | "images"
   | "analysis"
   | "structured-data"
-  | "audio-transcription";
+  | "audio-transcription"
+  | "embeddings"
+  | "similarity";
 
 export type ModelToolsConfig = {
   modelId: string;
@@ -34,6 +36,8 @@ export function getModelTools(modelId: string): ModelTool[] {
     "analysis",
     "structured-data",
     "audio-transcription",
+    "embeddings",
+    "similarity",
   ];
 
   // Only Google Gemini 2.5 models support image generation
@@ -66,6 +70,8 @@ export function getToolDisplayName(tool: ModelTool): string {
     analysis: "Analysis",
     "structured-data": "Structured Data",
     "audio-transcription": "Audio",
+    embeddings: "Embeddings",
+    similarity: "Similarity",
   };
   return names[tool];
 }
@@ -82,6 +88,8 @@ export function getToolIcon(tool: ModelTool): string {
     analysis: "📊",
     "structured-data": "🔷",
     "audio-transcription": "🎙️",
+    embeddings: "🔢",
+    similarity: "🔍",
   };
   return icons[tool];
 }

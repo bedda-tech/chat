@@ -28,6 +28,10 @@ import { generateImageTool } from "@/lib/ai/tools/generate-image";
 import { generateStructuredDataTool } from "@/lib/ai/tools/generate-structured-data";
 import { getWeather } from "@/lib/ai/tools/get-weather";
 import { requestSuggestions } from "@/lib/ai/tools/request-suggestions";
+import {
+  compareTextSimilarityTool,
+  generateTextEmbeddingsTool,
+} from "@/lib/ai/tools/text-embeddings";
 import { transcribeAudioTool } from "@/lib/ai/tools/transcribe-audio";
 import { updateDocument } from "@/lib/ai/tools/update-document";
 import {
@@ -194,6 +198,8 @@ export async function POST(request: Request) {
       "analyzeData",
       "generateStructuredData",
       "transcribeAudio",
+      "generateTextEmbeddings",
+      "compareTextSimilarity",
     ];
     
     // Gemini 2.5 Flash Image does NOT support function calling at all
@@ -218,6 +224,8 @@ export async function POST(request: Request) {
           generateImage: generateImageTool(),
           generateStructuredData: generateStructuredDataTool(),
           transcribeAudio: transcribeAudioTool(),
+          generateTextEmbeddings: generateTextEmbeddingsTool(),
+          compareTextSimilarity: compareTextSimilarityTool(),
         };
         
         // Get the actual gateway model ID
