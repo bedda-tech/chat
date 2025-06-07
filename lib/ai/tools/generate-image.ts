@@ -10,7 +10,7 @@ export const generateImageTool = () =>
   tool({
     description:
       "Generate an image based on a detailed text prompt. Use this when the user explicitly asks to create, generate, draw, or make an image, picture, photo, or illustration.",
-    parameters: z.object({
+    inputSchema: z.object({
       prompt: z
         .string()
         .describe(

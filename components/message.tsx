@@ -202,12 +202,24 @@ const PurePreviewMessage = ({
                     {state === "input-available" && (
                       <ToolInput input={part.input} />
                     )}
-                    {state === "output-available" && (
-                      <ToolOutput
-                        errorText={undefined}
-                        output={<Weather weatherAtLocation={part.output} />}
-                      />
-                    )}
+                    {state === "output-available" && (() => {
+                      const output = part.output as any;
+                      
+                      return (
+                        <ToolOutput
+                          errorText={output?.error || output?.status === "error" ? output.error : undefined}
+                          output={
+                            output?.data ? (
+                              <Weather weatherAtLocation={output.data} />
+                            ) : output?.status === "loading" ? (
+                              <div className="text-muted-foreground text-sm p-4">
+                                {output.message}
+                              </div>
+                            ) : null
+                          }
+                        />
+                      );
+                    })()}
                   </ToolContent>
                 </Tool>
               );

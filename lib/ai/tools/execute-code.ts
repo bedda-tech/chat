@@ -9,7 +9,7 @@ export const executeCodeTool = () =>
   tool({
     description:
       "Execute Python code safely in a sandboxed environment. Use this when users want to run, test, or execute Python code snippets. Do NOT use for complex scripts or those requiring external dependencies.",
-    parameters: z.object({
+    inputSchema: z.object({
       code: z
         .string()
         .describe(
