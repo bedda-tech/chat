@@ -49,7 +49,7 @@ function PureSuggestedActions({
 
   return (
     <div
-      className="grid w-full gap-2 sm:grid-cols-2"
+      className="grid w-full gap-2 md:grid-cols-2 lg:gap-2.5"
       data-testid="suggested-actions"
     >
       {suggestedActions.map((config, index) => (
@@ -61,7 +61,7 @@ function PureSuggestedActions({
           transition={{ delay: 0.05 * index }}
         >
           <Suggestion
-            className="h-auto w-full whitespace-normal p-3 text-left"
+            className="h-auto w-full whitespace-normal p-2.5 text-left text-sm md:p-2 md:text-xs lg:p-3 lg:text-sm xl:text-base"
             onClick={(suggestion) => {
               // If a specific model is recommended, switch to it
               if (config.modelId && onModelChange) {
@@ -76,7 +76,9 @@ function PureSuggestedActions({
             }}
             suggestion={config.text}
           >
-            <span className="mr-2 text-lg">{config.emoji}</span>
+            <span className="mr-2 text-base md:text-sm lg:text-base xl:text-lg">
+              {config.emoji}
+            </span>
             {config.text}
           </Suggestion>
         </motion.div>
