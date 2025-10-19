@@ -20,13 +20,13 @@ export const Greeting = ({
 }: GreetingProps) => {
   return (
     <div
-      className="flex h-full w-full flex-col items-center justify-center gap-4 px-4 py-4"
+      className="flex h-full w-full flex-col items-center justify-center gap-3 px-4 py-4"
       key="overview"
     >
       {/* Logo container - scales based on available space */}
       <motion.div
         animate={{ opacity: 1, y: 0 }}
-        className="flex w-full max-w-xs shrink-0 justify-center"
+        className="flex w-full max-w-[200px] shrink-0 justify-center"
         exit={{ opacity: 0, y: 10 }}
         initial={{ opacity: 0, y: 10 }}
         transition={{ delay: 0.3 }}

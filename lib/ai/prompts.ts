@@ -59,7 +59,7 @@ export const systemPrompt = ({
 }) => {
   const requestPrompt = getRequestPromptFromHints(requestHints);
   
-  const isGemini25FlashImage = selectedChatModel === "google-gemini-2.5-flash-image";
+  const isGemini25FlashImage = selectedChatModel === "google-gemini-2.5-flash-image-preview";
 
   const imageGenerationPrompt = isGemini25FlashImage
     ? "\n\nImage Generation: You are using Gemini 2.5 Flash Image which can generate images directly in responses. When users ask to create, generate, or draw images, simply describe the image you're generating in your response. The model will automatically generate the image alongside your text response. Be descriptive and creative!"

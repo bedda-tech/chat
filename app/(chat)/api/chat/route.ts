@@ -188,7 +188,7 @@ export async function POST(request: Request) {
 
     // Build active tools list based on model capabilities
     // All tools go through Vercel AI Gateway which handles provider credentials
-    const isGemini25FlashImage = selectedChatModel === "google-gemini-2.5-flash-image";
+    const isGemini25FlashImage = selectedChatModel === "google-gemini-2.5-flash-image-preview";
     
     const allTools = [
       "getWeather",

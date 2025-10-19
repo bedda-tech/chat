@@ -74,18 +74,13 @@ function PureChatHeader({
               <div className="size-6 animate-pulse rounded-full bg-zinc-500/30" />
             </Button>
           ) : (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                  className="order-3 h-8 w-8 cursor-pointer"
-                  data-testid="header-user-nav-button"
-                  variant="outline"
-                >
-                  <User className="h-8 w-8" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>User Menu</TooltipContent>
-            </Tooltip>
+            <Button
+              className="order-3 h-8 w-8 cursor-pointer"
+              data-testid="header-user-nav-button"
+              variant="outline"
+            >
+              <User className="h-8 w-8" />
+            </Button>
           )}
         </DropdownMenuTrigger>
         <DropdownMenuContent

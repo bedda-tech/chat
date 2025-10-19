@@ -1,0 +1,704 @@
+{
+  "models": [
+    {
+      "id": "anthropic-claude-sonnet-4.5",
+      "gatewayId": "anthropic/claude-sonnet-4.5",
+      "provider": "anthropic",
+      "name": "Claude Sonnet 4.5",
+      "description": "Most intelligent Claude model with extended thinking capabilities",
+      "contextWindow": 200000,
+      "pricing": {
+        "input": 3.0,
+        "output": 15.0,
+        "cachedInput": 0.3,
+        "cachedOutput": 3.75
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": true,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 8,
+        "temperature": 0.7,
+        "idealFor": ["complex reasoning", "extended thinking", "analysis", "research"]
+      }
+    },
+    {
+      "id": "anthropic-claude-sonnet-4",
+      "gatewayId": "anthropic/claude-sonnet-4",
+      "provider": "anthropic",
+      "name": "Claude Sonnet 4",
+      "description": "Advanced Claude model with strong reasoning and extended thinking",
+      "contextWindow": 200000,
+      "pricing": {
+        "input": 3.0,
+        "output": 15.0,
+        "cachedInput": 0.3,
+        "cachedOutput": 3.75
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": true,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 8,
+        "temperature": 0.7,
+        "idealFor": ["complex reasoning", "extended thinking", "analysis", "research"]
+      }
+    },
+    {
+      "id": "openai-gpt-4.1-mini",
+      "gatewayId": "openai/gpt-4.1-mini",
+      "provider": "openai",
+      "name": "GPT-4.1 Mini",
+      "description": "Efficient GPT-4.1 variant for everyday tasks",
+      "contextWindow": 1000000,
+      "pricing": {
+        "input": 0.4,
+        "output": 1.6,
+        "cachedInput": 0.1,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 5,
+        "temperature": 0.7,
+        "idealFor": ["efficient processing", "everyday tasks", "multimodal"]
+      }
+    },
+    {
+      "id": "anthropic-claude-3.7-sonnet",
+      "gatewayId": "anthropic/claude-3.7-sonnet",
+      "provider": "anthropic",
+      "name": "Claude 3.7 Sonnet",
+      "description": "Powerful model with extended thinking capabilities",
+      "contextWindow": 200000,
+      "pricing": {
+        "input": 3.0,
+        "output": 15.0,
+        "cachedInput": 0.3,
+        "cachedOutput": 3.75
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": true,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 8,
+        "temperature": 0.7,
+        "idealFor": ["complex reasoning", "extended thinking", "analysis", "research"]
+      }
+    },
+    {
+      "id": "openai-gpt-5",
+      "gatewayId": "openai/gpt-5",
+      "provider": "openai",
+      "name": "GPT-5",
+      "description": "Most advanced OpenAI model with superior reasoning",
+      "contextWindow": 400000,
+      "pricing": {
+        "input": 1.25,
+        "output": 10.0,
+        "cachedInput": 0.13,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": true,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 8,
+        "temperature": 0.7,
+        "idealFor": ["complex tasks", "advanced reasoning", "multimodal"]
+      }
+    },
+    {
+      "id": "openai-gpt-5-nano",
+      "gatewayId": "openai/gpt-5-nano",
+      "provider": "openai",
+      "name": "GPT-5 Nano",
+      "description": "Smallest and fastest GPT-5 model",
+      "contextWindow": 400000,
+      "pricing": {
+        "input": 0.05,
+        "output": 0.4,
+        "cachedInput": 0.01,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": false,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 4,
+        "temperature": 0.7,
+        "idealFor": ["ultra-fast responses", "simple tasks", "high throughput"]
+      }
+    },
+    {
+      "id": "google-gemini-2.5-flash-lite",
+      "gatewayId": "google/gemini-2.5-flash-lite",
+      "provider": "google",
+      "name": "Gemini 2.5 Flash Lite",
+      "description": "Ultra-fast and cost-effective Gemini model",
+      "contextWindow": 1000000,
+      "pricing": {
+        "input": 0.1,
+        "output": 0.4,
+        "cachedInput": null,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 6,
+        "temperature": 0.7,
+        "idealFor": ["fast responses", "efficient processing", "multimodal"]
+      }
+    },
+    {
+      "id": "google-gemini-2.5-pro",
+      "gatewayId": "google/gemini-2.5-pro",
+      "provider": "google",
+      "name": "Gemini 2.5 Pro",
+      "description": "Most capable Gemini model with advanced reasoning",
+      "contextWindow": 1000000,
+      "pricing": {
+        "input": 2.5,
+        "output": 10.0,
+        "cachedInput": null,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": true,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 7,
+        "temperature": 0.7,
+        "idealFor": ["advanced reasoning", "complex tasks", "multimodal"]
+      }
+    },
+    {
+      "id": "anthropic-claude-haiku-4.5",
+      "gatewayId": "anthropic/claude-haiku-4.5",
+      "provider": "anthropic",
+      "name": "Claude Haiku 4.5",
+      "description": "Fast and efficient Claude model for quick responses",
+      "contextWindow": 200000,
+      "pricing": {
+        "input": 1.0,
+        "output": 5.0,
+        "cachedInput": 0.1,
+        "cachedOutput": 1.25
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 6,
+        "temperature": 0.6,
+        "idealFor": ["fast responses", "high throughput", "efficient processing"]
+      }
+    },
+    {
+      "id": "openai-gpt-5-mini",
+      "gatewayId": "openai/gpt-5-mini",
+      "provider": "openai",
+      "name": "GPT-5 Mini",
+      "description": "Efficient GPT-5 variant for faster responses",
+      "contextWindow": 400000,
+      "pricing": {
+        "input": 0.25,
+        "output": 2.0,
+        "cachedInput": 0.03,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 6,
+        "temperature": 0.7,
+        "idealFor": ["efficient processing", "everyday tasks", "balanced performance"]
+      }
+    },
+    {
+      "id": "google-gemini-2.0-flash",
+      "gatewayId": "google/gemini-2.0-flash",
+      "provider": "google",
+      "name": "Gemini 2.0 Flash",
+      "description": "Fast multimodal model with thinking capabilities",
+      "contextWindow": 1000000,
+      "pricing": {
+        "input": 0.1,
+        "output": 0.4,
+        "cachedInput": null,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": true,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 6,
+        "temperature": 0.7,
+        "idealFor": ["fast responses", "thinking capabilities", "multimodal"]
+      }
+    },
+    {
+      "id": "google-gemini-2.0-flash-lite",
+      "gatewayId": "google/gemini-2.0-flash-lite",
+      "provider": "google",
+      "name": "Gemini 2.0 Flash Lite",
+      "description": "Lightweight and fast Gemini 2.0 variant",
+      "contextWindow": 1000000,
+      "pricing": {
+        "input": 0.07,
+        "output": 0.3,
+        "cachedInput": null,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 5,
+        "temperature": 0.7,
+        "idealFor": ["fast responses", "lightweight processing", "multimodal"]
+      }
+    },
+    {
+      "id": "google-gemini-2.5-flash",
+      "gatewayId": "google/gemini-2.5-flash",
+      "provider": "google",
+      "name": "Gemini 2.5 Flash",
+      "description": "Fast Gemini model with enhanced speed and Google Search grounding",
+      "contextWindow": 1000000,
+      "pricing": {
+        "input": 0.3,
+        "output": 2.5,
+        "cachedInput": null,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": true,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 6,
+        "temperature": 0.7,
+        "idealFor": ["fast responses", "Google Search grounding", "multimodal"]
+      }
+    },
+    {
+      "id": "anthropic-claude-3-haiku",
+      "gatewayId": "anthropic/claude-3-haiku",
+      "provider": "anthropic",
+      "name": "Claude 3 Haiku",
+      "description": "Fastest Claude 3 model for high-throughput tasks",
+      "contextWindow": 200000,
+      "pricing": {
+        "input": 0.25,
+        "output": 1.25,
+        "cachedInput": 0.03,
+        "cachedOutput": 0.3
+      },
+      "capabilities": {
+        "vision": false,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 4,
+        "temperature": 0.6,
+        "idealFor": ["quick responses", "simple tasks", "high throughput"]
+      }
+    },
+    {
+      "id": "openai-gpt-4o",
+      "gatewayId": "openai/gpt-4o",
+      "provider": "openai",
+      "name": "GPT-4o",
+      "description": "Multimodal model with vision, tools, and structured outputs",
+      "contextWindow": 128000,
+      "pricing": {
+        "input": 2.5,
+        "output": 10.0,
+        "cachedInput": 1.25,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 7,
+        "temperature": 0.7,
+        "idealFor": ["multimodal tasks", "vision", "structured outputs", "function calling"]
+      }
+    },
+    {
+      "id": "openai-gpt-4o-mini",
+      "gatewayId": "openai/gpt-4o-mini",
+      "provider": "openai",
+      "name": "GPT-4o Mini",
+      "description": "Fast, affordable multimodal model for everyday tasks",
+      "contextWindow": 128000,
+      "pricing": {
+        "input": 0.15,
+        "output": 0.6,
+        "cachedInput": 0.07,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 5,
+        "temperature": 0.7,
+        "idealFor": ["fast responses", "affordable processing", "everyday tasks"]
+      }
+    },
+    {
+      "id": "xai-grok-4-fast-reasoning",
+      "gatewayId": "xai/grok-4-fast-reasoning",
+      "provider": "xai",
+      "name": "Grok 4 Fast Reasoning",
+      "description": "Fast Grok 4 variant optimized for reasoning tasks",
+      "contextWindow": 2000000,
+      "pricing": {
+        "input": 0.2,
+        "output": 0.5,
+        "cachedInput": 0.05,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": false,
+        "toolCalling": true,
+        "reasoning": true,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 7,
+        "temperature": 0.7,
+        "idealFor": ["fast reasoning", "chain-of-thought", "analysis"]
+      }
+    },
+    {
+      "id": "openai-gpt-oss-120b",
+      "gatewayId": "openai/gpt-oss-120b",
+      "provider": "openai",
+      "name": "GPT OSS 120B",
+      "description": "Large open-source model with browser search support",
+      "contextWindow": 131000,
+      "pricing": {
+        "input": 0.1,
+        "output": 0.5,
+        "cachedInput": null,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": false,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 5,
+        "temperature": 0.7,
+        "idealFor": ["web search", "browser integration", "open source"]
+      }
+    },
+    {
+      "id": "xai-grok-4-fast-non-reasoning",
+      "gatewayId": "xai/grok-4-fast-non-reasoning",
+      "provider": "xai",
+      "name": "Grok 4 Fast Non-Reasoning",
+      "description": "Fast Grok 4 variant for general conversational tasks",
+      "contextWindow": 2000000,
+      "pricing": {
+        "input": 0.2,
+        "output": 0.5,
+        "cachedInput": 0.05,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": false,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 5,
+        "temperature": 0.7,
+        "idealFor": ["fast responses", "conversational", "general purpose"]
+      }
+    },
+    {
+      "id": "anthropic-claude-3.5-haiku",
+      "gatewayId": "anthropic/claude-3.5-haiku",
+      "provider": "anthropic",
+      "name": "Claude 3.5 Haiku",
+      "description": "Balanced speed and intelligence for everyday tasks",
+      "contextWindow": 200000,
+      "pricing": {
+        "input": 0.8,
+        "output": 4.0,
+        "cachedInput": 0.08,
+        "cachedOutput": 1.0
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 5,
+        "temperature": 0.6,
+        "idealFor": ["fast responses", "everyday tasks", "efficient processing"]
+      }
+    },
+    {
+      "id": "openai-gpt-4.1",
+      "gatewayId": "openai/gpt-4.1",
+      "provider": "openai",
+      "name": "GPT-4.1",
+      "description": "Enhanced GPT-4 with improved capabilities",
+      "contextWindow": 1000000,
+      "pricing": {
+        "input": 2.0,
+        "output": 8.0,
+        "cachedInput": 0.5,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 7,
+        "temperature": 0.7,
+        "idealFor": ["multimodal tasks", "vision", "structured outputs"]
+      }
+    },
+    {
+      "id": "xai-grok-4",
+      "gatewayId": "xai/grok-4",
+      "provider": "xai",
+      "name": "Grok 4",
+      "description": "Most advanced xAI model with superior reasoning capabilities",
+      "contextWindow": 256000,
+      "pricing": {
+        "input": 3.0,
+        "output": 15.0,
+        "cachedInput": null,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": true,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 7,
+        "temperature": 0.7,
+        "idealFor": ["advanced reasoning", "complex tasks", "multimodal"]
+      }
+    },
+    {
+      "id": "deepseek-deepseek-v3",
+      "gatewayId": "deepseek/deepseek-v3",
+      "provider": "deepseek",
+      "name": "DeepSeek V3",
+      "description": "Advanced DeepSeek model for complex reasoning",
+      "contextWindow": 164000,
+      "pricing": {
+        "input": 0.77,
+        "output": 0.77,
+        "cachedInput": null,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": false,
+        "toolCalling": true,
+        "reasoning": true,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 7,
+        "temperature": 0.7,
+        "idealFor": ["complex reasoning", "STEM", "coding", "analysis"]
+      }
+    },
+    {
+      "id": "xai-grok-code-fast-1",
+      "gatewayId": "xai/grok-code-fast-1",
+      "provider": "xai",
+      "name": "Grok Code Fast 1",
+      "description": "Specialized Grok model for code generation",
+      "contextWindow": 256000,
+      "pricing": {
+        "input": 0.2,
+        "output": 1.5,
+        "cachedInput": null,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": false,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 6,
+        "temperature": 0.3,
+        "idealFor": ["code generation", "programming", "fast coding"]
+      }
+    },
+    {
+      "id": "moonshotai-kimi-k2-turbo",
+      "gatewayId": "moonshotai/kimi-k2-turbo",
+      "provider": "moonshotai",
+      "name": "Kimi K2 Turbo",
+      "description": "Fast and capable model from Moonshot AI",
+      "contextWindow": 256000,
+      "pricing": {
+        "input": 2.4,
+        "output": 10.0,
+        "cachedInput": null,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": false,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 6,
+        "temperature": 0.7,
+        "idealFor": ["fast responses", "general purpose", "efficient processing"]
+      }
+    },
+    {
+      "id": "deepseek-deepseek-v3.1",
+      "gatewayId": "deepseek/deepseek-v3.1",
+      "provider": "deepseek",
+      "name": "DeepSeek V3.1",
+      "description": "Latest DeepSeek model with improved capabilities",
+      "contextWindow": 164000,
+      "pricing": {
+        "input": 0.2,
+        "output": 0.8,
+        "cachedInput": null,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": false,
+        "toolCalling": true,
+        "reasoning": true,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 7,
+        "temperature": 0.7,
+        "idealFor": ["complex reasoning", "STEM", "coding", "analysis"]
+      }
+    },
+    {
+      "id": "google-gemini-2.5-flash-image-preview",
+      "gatewayId": "google/gemini-2.5-flash-image-preview",
+      "provider": "google",
+      "name": "Gemini 2.5 Flash Image ⭐",
+      "description": "Image generation support! Multimodal with text and image generation",
+      "contextWindow": 33000,
+      "pricing": {
+        "input": 0.3,
+        "output": 2.5,
+        "cachedInput": null,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": true,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": true
+      },
+      "config": {
+        "maxSteps": 5,
+        "temperature": 0.9,
+        "idealFor": ["image generation", "multimodal", "visual content creation"]
+      }
+    },
+    {
+      "id": "zai-glm-4.6",
+      "gatewayId": "zai/glm-4.6",
+      "provider": "zai",
+      "name": "GLM 4.6",
+      "description": "Advanced GLM model from ZhipuAI",
+      "contextWindow": 200000,
+      "pricing": {
+        "input": 0.6,
+        "output": 2.2,
+        "cachedInput": 0.11,
+        "cachedOutput": null
+      },
+      "capabilities": {
+        "vision": false,
+        "toolCalling": true,
+        "reasoning": false,
+        "imageGeneration": false
+      },
+      "config": {
+        "maxSteps": 6,
+        "temperature": 0.7,
+        "idealFor": ["general purpose", "Chinese language", "multimodal"]
+      }
+    }
+  ]
+}

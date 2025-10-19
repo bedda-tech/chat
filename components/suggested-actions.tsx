@@ -29,17 +29,17 @@ function PureSuggestedActions({
     {
       emoji: "🎨",
       text: "Generate an image of a Corallium rubrum coral from the reefs of Sciacca, Sicily",
-      modelId: "google-gemini-2.5-flash-image",
+      modelId: "google-gemini-2.5-flash-image-preview",
     },
     {
       emoji: "💻",
       text: "Write a React component with TypeScript for a todo list",
-      modelId: "openai-gpt-5-codex",
+      modelId: "xai-grok-code-fast-1",
     },
     {
       emoji: "🧠",
       text: "Explain quantum computing using deep reasoning",
-      modelId: "deepseek-reasoner",
+      modelId: "anthropic-claude-sonnet-4.5",
     },
     {
       emoji: "🌤️",
