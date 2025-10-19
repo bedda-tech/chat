@@ -42,13 +42,13 @@ export const getWeather = tool({
     let longitude: number;
     let cityName: string | undefined;
 
-    if ("city" in input) {
+    if (input.city) {
       // Stream status update
       yield {
         status: 'loading' as const,
         message: `Looking up coordinates for ${input.city}...`,
       };
-      
+
       const coords = await geocodeCity(input.city);
       if (!coords) {
         return {
@@ -59,9 +59,14 @@ export const getWeather = tool({
       latitude = coords.latitude;
       longitude = coords.longitude;
       cityName = input.city;
-    } else {
+    } else if (input.latitude !== undefined && input.longitude !== undefined) {
       latitude = input.latitude;
       longitude = input.longitude;
+    } else {
+      return {
+        status: 'error' as const,
+        error: 'Must provide either city or both latitude and longitude',
+      };
     }
 
     // Stream status update

@@ -62,7 +62,7 @@ export const generateStructuredDataTool = () =>
             break;
             
           case "config-file":
-            schema = z.record(z.any());
+            schema = z.record(z.string(), z.any());
             break;
             
           case "test-data":
@@ -70,7 +70,7 @@ export const generateStructuredDataTool = () =>
             schema = z.object({
               id: z.string(),
               type: z.string(),
-              attributes: z.record(z.any()),
+              attributes: z.record(z.string(), z.any()),
             });
             break;
             
@@ -90,7 +90,7 @@ export const generateStructuredDataTool = () =>
             break;
             
           default:
-            schema = z.record(z.any());
+            schema = z.record(z.string(), z.any());
         }
 
         // Wrap in array if count > 1
