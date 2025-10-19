@@ -1,0 +1,1201 @@
+anthropic logo
+anthropic/claude-sonnet-4.5
+200K
+$3.00/M
+$15.00/M
+$0.30/M
+$3.75/M
+anthropic logo
+bedrock logo
+vertexAnthropic logo
+anthropic logo
+anthropic/claude-sonnet-4
+200K
+$3.00/M
+$15.00/M
+$0.30/M
+$3.75/M
+anthropic logo
+bedrock logo
+vertexAnthropic logo
+openai logo
+openai/gpt-4.1-mini
+1M
+$0.40/M
+$1.60/M
+$0.10/M
+—
+azure logo
+openai logo
+anthropic logo
+anthropic/claude-3.7-sonnet
+200K
+$3.00/M
+$15.00/M
+$0.30/M
+$3.75/M
+anthropic logo
+bedrock logo
+vertexAnthropic logo
+openai logo
+openai/gpt-5
+400K
+$1.25/M
+$10.00/M
+$0.13/M
+—
+azure logo
+openai logo
+openai logo
+openai/gpt-5-nano
+400K
+$0.05/M
+$0.40/M
+$0.01/M
+—
+azure logo
+openai logo
+google logo
+google/gemini-2.5-flash-lite
+1M
+$0.10/M
+$0.40/M
+—
+—
+google logo
+vertex logo
+google logo
+google/gemini-2.5-pro
+1M
+$2.50/M
+$10.00/M
+—
+—
+google logo
+vertex logo
+anthropic logo
+anthropic/claude-haiku-4.5
+200K
+$1.00/M
+$5.00/M
+$0.10/M
+$1.25/M
+anthropic logo
+bedrock logo
+vertexAnthropic logo
+openai logo
+openai/gpt-5-mini
+400K
+$0.25/M
+$2.00/M
+$0.03/M
+—
+azure logo
+openai logo
+google logo
+google/gemini-2.0-flash
+1M
+$0.10/M
+$0.40/M
+—
+—
+google logo
+vertex logo
+google logo
+google/gemini-2.0-flash-lite
+1M
+$0.07/M
+$0.30/M
+—
+—
+google logo
+vertex logo
+google logo
+google/gemini-2.5-flash
+1M
+$0.30/M
+$2.50/M
+—
+—
+google logo
+vertex logo
+anthropic logo
+anthropic/claude-3-haiku
+200K
+$0.25/M
+$1.25/M
+$0.03/M
+$0.30/M
+anthropic logo
+bedrock logo
+vertexAnthropic logo
+openai logo
+openai/gpt-4o
+128K
+$2.50/M
+$10.00/M
+$1.25/M
+—
+azure logo
+openai logo
+openai logo
+openai/text-embedding-3-small
+—
+$0.02/M
+—
+—
+—
+azure logo
+openai logo
+openai logo
+openai/gpt-4o-mini
+128K
+$0.15/M
+$0.60/M
+$0.07/M
+—
+azure logo
+openai logo
+xai logo
+xai/grok-4-fast-reasoning
+2M
+$0.20/M
+$0.50/M
+$0.05/M
+—
+xai logo
+openai logo
+openai/gpt-oss-120b
+131K
+$0.10/M
+$0.50/M
+—
+—
+baseten logo
+bedrock logo
+cerebras logo
++3
+xai logo
+xai/grok-4-fast-non-reasoning
+2M
+$0.20/M
+$0.50/M
+$0.05/M
+—
+xai logo
+anthropic logo
+anthropic/claude-3.5-haiku
+200K
+$0.80/M
+$4.00/M
+$0.08/M
+$1.00/M
+anthropic logo
+bedrock logo
+vertexAnthropic logo
+openai logo
+openai/gpt-4.1
+1M
+$2.00/M
+$8.00/M
+$0.50/M
+—
+azure logo
+openai logo
+xai logo
+xai/grok-4
+256K
+$3.00/M
+$15.00/M
+—
+—
+xai logo
+deepseek logo
+deepseek/deepseek-v3
+164K
+$0.77/M
+$0.77/M
+—
+—
+baseten logo
+fireworks logo
+novita logo
++1
+google logo
+google/gemini-embedding-001
+—
+$0.15/M
+—
+—
+—
+google logo
+vertex logo
+xai logo
+xai/grok-code-fast-1
+256K
+$0.20/M
+$1.50/M
+—
+—
+xai logo
+moonshotai logo
+moonshotai/kimi-k2-turbo
+256K
+$2.40/M
+$10.00/M
+—
+—
+moonshotai logo
+deepseek logo
+deepseek/deepseek-v3.1
+164K
+$0.20/M
+$0.80/M
+—
+—
+baseten logo
+chutes logo
+deepinfra logo
++2
+google logo
+google/gemini-2.5-flash-image-preview
+33K
+$0.30/M
+$2.50/M
+—
+—
+google logo
+zai logo
+zai/glm-4.6
+200K
+$0.60/M
+$2.20/M
+$0.11/M
+—
+zai logo
+alibaba logo
+alibaba/qwen3-max
+262K
+$1.20/M
+$6.00/M
+$0.24/M
+—
+alibaba logo
+mistral logo
+mistral/mistral-medium
+128K
+$0.40/M
+$2.00/M
+—
+—
+mistral logo
+openai logo
+openai/gpt-5-codex
+400K
+$1.25/M
+$10.00/M
+$0.13/M
+—
+azure logo
+openai logo
+google logo
+google/gemini-2.5-flash-lite-preview-09-2025
+1M
+$0.10/M
+$0.40/M
+—
+—
+google logo
+meta logo
+meta/llama-4-scout
+128K
+$0.08/M
+$0.30/M
+—
+—
+bedrock logo
+cerebras logo
+deepinfra logo
++2
+google logo
+google/gemini-2.5-flash-preview-09-2025
+1M
+$0.30/M
+$2.50/M
+—
+—
+google logo
+anthropic logo
+anthropic/claude-3.5-sonnet
+200K
+$3.00/M
+$15.00/M
+$0.30/M
+$3.75/M
+anthropic logo
+bedrock logo
+vertexAnthropic logo
+alibaba logo
+alibaba/qwen3-coder-30b-a3b
+262K
+$0.15/M
+$0.60/M
+—
+—
+bedrock logo
+alibaba logo
+alibaba/qwen-3-235b
+262K
+$0.13/M
+$0.60/M
+—
+—
+baseten logo
+deepinfra logo
+fireworks logo
++1
+mistral logo
+mistral/codestral-embed
+—
+$0.15/M
+—
+—
+—
+mistral logo
+perplexity logo
+perplexity/sonar
+127K
+$1.00/M
+$1.00/M
+—
+—
+perplexity logo
+alibaba logo
+alibaba/qwen3-coder
+131K
+$0.40/M
+$1.60/M
+—
+—
+baseten logo
+cerebras logo
+deepinfra logo
++2
+anthropic logo
+anthropic/claude-opus-4.1
+200K
+$15.00/M
+$75.00/M
+$1.50/M
+$18.75/M
+anthropic logo
+bedrock logo
+vertexAnthropic logo
+xai logo
+xai/grok-3-mini
+131K
+$0.30/M
+$0.50/M
+—
+—
+xai logo
+openai logo
+openai/gpt-4.1-nano
+1M
+$0.10/M
+$0.40/M
+$0.03/M
+—
+azure logo
+openai logo
+amazon logo
+amazon/nova-pro
+300K
+$0.80/M
+$3.20/M
+—
+—
+bedrock logo
+openai logo
+openai/gpt-oss-20b
+128K
+$0.07/M
+$0.30/M
+—
+—
+bedrock logo
+fireworks logo
+groq logo
+meta logo
+meta/llama-4-maverick
+1.3M
+$0.15/M
+$0.60/M
+—
+—
+bedrock logo
+deepinfra logo
+vertex logo
+moonshotai logo
+moonshotai/kimi-k2-0905
+131K
+$0.60/M
+$2.50/M
+—
+—
+baseten logo
+fireworks logo
+groq logo
++1
+moonshotai logo
+moonshotai/kimi-k2
+131K
+$0.50/M
+$2.00/M
+—
+—
+deepinfra logo
+fireworks logo
+groq logo
++3
+openai logo
+openai/text-embedding-3-large
+—
+$0.13/M
+—
+—
+—
+azure logo
+openai logo
+deepseek logo
+deepseek/deepseek-v3.2-exp
+164K
+$0.27/M
+$0.41/M
+—
+—
+deepseek logo
+novita logo
+openai logo
+openai/o3
+200K
+$2.00/M
+$8.00/M
+$0.50/M
+—
+openai logo
+xai logo
+xai/grok-2-vision
+33K
+$2.00/M
+$10.00/M
+—
+—
+xai logo
+xai logo
+xai/grok-3-fast
+131K
+$5.00/M
+$25.00/M
+—
+—
+xai logo
+google logo
+google/gemini-2.5-flash-image
+Image Generation
+33K
+$0.30/M
+$2.50/M
+—
+—
+google logo
+vertex logo
+zai logo
+zai/glm-4.5
+128K
+$0.60/M
+$2.20/M
+—
+—
+novita logo
+zai logo
+deepseek logo
+deepseek/deepseek-v3.2-exp-thinking
+164K
+$0.28/M
+$0.42/M
+$0.03/M
+—
+deepseek logo
+meta logo
+meta/llama-3.1-8b
+128K
+$0.05/M
+$0.08/M
+—
+—
+bedrock logo
+cerebras logo
+groq logo
+meituan logo
+meituan/longcat-flash-chat
+128K
+$0.00/M
+$0.00/M
+—
+—
+chutes logo
+meituan logo
+alibaba logo
+alibaba/qwen3-next-80b-a3b-instruct
+131K
+$0.15/M
+$1.50/M
+—
+—
+alibaba logo
+novita logo
+vercel logo
+vercel/v0-1.5-md
+128K
+$3.00/M
+$15.00/M
+—
+—
+vercel logo
+perplexity logo
+perplexity/sonar-pro
+200K
+$3.00/M
+$15.00/M
+—
+—
+perplexity logo
+mistral logo
+mistral/mistral-small
+32K
+$0.10/M
+$0.30/M
+—
+—
+mistral logo
+deepseek logo
+deepseek/deepseek-v3.1-terminus
+131K
+$0.27/M
+$1.00/M
+—
+—
+novita logo
+cohere logo
+cohere/embed-v4.0
+—
+$0.12/M
+—
+—
+—
+cohere logo
+xai logo
+xai/grok-3
+131K
+$3.00/M
+$15.00/M
+—
+—
+xai logo
+stealth logo
+stealth/sonoma-sky-alpha
+2M
+$0.20/M
+$0.50/M
+$0.05/M
+—
+stealth logo
+zai logo
+zai/glm-4.5-air
+128K
+$0.20/M
+$1.10/M
+—
+—
+zai logo
+openai logo
+openai/o4-mini
+200K
+$1.10/M
+$4.40/M
+$0.28/M
+—
+azure logo
+openai logo
+openai logo
+openai/gpt-3.5-turbo
+16K
+$0.50/M
+$1.50/M
+—
+—
+openai logo
+openai logo
+openai/text-embedding-ada-002
+—
+$0.10/M
+—
+—
+—
+azure logo
+openai logo
+alibaba logo
+alibaba/qwen-3-32b
+128K
+$0.10/M
+$0.30/M
+—
+—
+bedrock logo
+cerebras logo
+deepinfra logo
++2
+xai logo
+xai/grok-2
+131K
+$2.00/M
+$10.00/M
+—
+—
+xai logo
+deepseek logo
+deepseek/deepseek-r1
+160K
+$0.79/M
+$4.00/M
+—
+—
+bedrock logo
+fireworks logo
+parasail logo
+openai logo
+openai/gpt-4-turbo
+128K
+$10.00/M
+$30.00/M
+—
+—
+openai logo
+perplexity logo
+perplexity/sonar-reasoning-pro
+127K
+$2.00/M
+$8.00/M
+—
+—
+perplexity logo
+mistral logo
+mistral/codestral
+256K
+$0.30/M
+$0.90/M
+—
+—
+mistral logo
+meta logo
+meta/llama-3.3-70b
+128K
+$0.72/M
+$0.72/M
+—
+—
+bedrock logo
+cerebras logo
+groq logo
+alibaba logo
+alibaba/qwen3-max-preview
+262K
+$1.20/M
+$6.00/M
+$0.24/M
+—
+alibaba logo
+alibaba logo
+alibaba/qwen-3-14b
+41K
+$0.06/M
+$0.24/M
+—
+—
+deepinfra logo
+xai logo
+xai/grok-3-mini-fast
+131K
+$0.60/M
+$4.00/M
+—
+—
+xai logo
+mistral logo
+mistral/mistral-large
+32K
+$2.00/M
+$6.00/M
+—
+—
+mistral logo
+voyage logo
+voyage/voyage-3-large
+—
+$0.18/M
+—
+—
+—
+voyage logo
+mistral logo
+mistral/ministral-3b
+128K
+$0.04/M
+$0.04/M
+—
+—
+mistral logo
+anthropic logo
+anthropic/claude-opus-4
+200K
+$15.00/M
+$75.00/M
+$1.50/M
+$18.75/M
+anthropic logo
+bedrock logo
+vertexAnthropic logo
+google logo
+google/text-multilingual-embedding-002
+—
+$0.03/M
+—
+—
+—
+vertex logo
+voyage logo
+voyage/voyage-3.5
+—
+$0.06/M
+—
+—
+—
+voyage logo
+cohere logo
+cohere/command-a
+256K
+$2.50/M
+$10.00/M
+—
+—
+cohere logo
+alibaba logo
+alibaba/qwen3-coder-plus
+1M
+$1.00/M
+$5.00/M
+—
+—
+alibaba logo
+openai logo
+openai/gpt-5-pro
+400K
+$15.00/M
+$120.00/M
+—
+—
+openai logo
+zai logo
+zai/glm-4.5v
+66K
+$0.60/M
+$1.80/M
+—
+—
+novita logo
+zai logo
+amazon logo
+amazon/nova-micro
+128K
+$0.04/M
+$0.14/M
+—
+—
+bedrock logo
+mistral logo
+mistral/magistral-small
+128K
+$0.50/M
+$1.50/M
+—
+—
+mistral logo
+perplexity logo
+perplexity/sonar-reasoning
+127K
+$1.00/M
+$5.00/M
+—
+—
+perplexity logo
+openai logo
+openai/o3-mini
+200K
+$1.10/M
+$4.40/M
+$0.55/M
+—
+azure logo
+openai logo
+vercel logo
+vercel/v0-1.0-md
+128K
+$3.00/M
+$15.00/M
+—
+—
+vercel logo
+anthropic logo
+anthropic/claude-3-opus
+200K
+$15.00/M
+$75.00/M
+$1.50/M
+$18.75/M
+anthropic logo
+bedrock logo
+vertexAnthropic logo
+stealth logo
+stealth/sonoma-dusk-alpha
+2M
+$0.20/M
+$0.50/M
+$0.05/M
+—
+stealth logo
+mistral logo
+mistral/pixtral-12b
+128K
+$0.15/M
+$0.15/M
+—
+—
+mistral logo
+morph logo
+morph/morph-v3-fast
+82K
+$0.80/M
+$1.20/M
+—
+—
+morph logo
+amazon logo
+amazon/nova-lite
+300K
+$0.06/M
+$0.24/M
+—
+—
+bedrock logo
+alibaba logo
+alibaba/qwen-3-30b
+41K
+$0.08/M
+$0.29/M
+—
+—
+deepinfra logo
+mistral logo
+mistral/ministral-8b
+128K
+$0.10/M
+$0.10/M
+—
+—
+mistral logo
+mistral logo
+mistral/magistral-medium
+128K
+$2.00/M
+$5.00/M
+—
+—
+mistral logo
+meta logo
+meta/llama-3.2-1b
+128K
+$0.10/M
+$0.10/M
+—
+—
+bedrock logo
+morph logo
+morph/morph-v3-large
+82K
+$0.90/M
+$1.90/M
+—
+—
+morph logo
+mistral logo
+mistral/mixtral-8x22b-instruct
+66K
+$1.20/M
+$1.20/M
+—
+—
+fireworks logo
+meta logo
+meta/llama-3.1-70b
+128K
+$0.72/M
+$0.72/M
+—
+—
+bedrock logo
+google logo
+google/text-embedding-005
+—
+$0.03/M
+—
+—
+—
+vertex logo
+meta logo
+meta/llama-3.2-90b
+128K
+$0.72/M
+$0.72/M
+—
+—
+bedrock logo
+mistral logo
+mistral/devstral-small
+128K
+$0.10/M
+$0.30/M
+—
+—
+mistral logo
+meta logo
+meta/llama-3.2-11b
+128K
+$0.16/M
+$0.16/M
+—
+—
+bedrock logo
+meta logo
+meta/llama-3.2-3b
+128K
+$0.15/M
+$0.15/M
+—
+—
+bedrock logo
+mistral logo
+mistral/mistral-embed
+—
+$0.10/M
+—
+—
+—
+mistral logo
+openai logo
+openai/o1
+200K
+$15.00/M
+$60.00/M
+$7.50/M
+—
+azure logo
+openai logo
+mistral logo
+mistral/pixtral-large
+128K
+$2.00/M
+$6.00/M
+—
+—
+mistral logo
+amazon logo
+amazon/titan-embed-text-v2
+—
+$0.02/M
+—
+—
+—
+bedrock logo
+cohere logo
+cohere/command-r
+128K
+$0.15/M
+$0.60/M
+—
+—
+cohere logo
+google logo
+google/gemma-2-9b
+8K
+$0.20/M
+$0.20/M
+—
+—
+groq logo
+openai logo
+openai/gpt-3.5-turbo-instruct
+8K
+$1.50/M
+$2.00/M
+—
+—
+openai logo
+inception logo
+inception/mercury-coder-small
+32K
+$0.25/M
+$1.00/M
+—
+—
+inception logo
+meta logo
+meta/llama-3-70b
+8K
+$0.59/M
+$0.79/M
+—
+—
+groq logo
+deepseek logo
+deepseek/deepseek-v3.1-base
+128K
+$0.20/M
+$0.80/M
+—
+—
+chutes logo
+cohere logo
+cohere/command-r-plus
+128K
+$2.50/M
+$10.00/M
+—
+—
+cohere logo
+meta logo
+meta/llama-3-8b
+8K
+$0.05/M
+$0.08/M
+—
+—
+groq logo
+deepseek logo
+deepseek/deepseek-r1-distill-llama-70b
+128K
+$0.75/M
+$0.99/M
+—
+—
+cerebras logo
+groq logo
+alibaba logo
+alibaba/qwen3-next-80b-a3b-thinking
+131K
+$0.14/M
+$1.40/M
+—
+—
+alibaba logo
+deepinfra logo
+novita logo
+alibaba logo
+alibaba/qwen3-vl-instruct
+131K
+$0.70/M
+$2.80/M
+—
+—
+alibaba logo
+alibaba logo
+alibaba/qwen3-vl-thinking
+131K
+$0.70/M
+$8.40/M
+—
+—
+alibaba logo
+anthropic logo
+anthropic/claude-3.5-sonnet-20240620
+200K
+$3.00/M
+$15.00/M
+—
+—
+bedrock logo
+vertexAnthropic logo
+meituan logo
+meituan/longcat-flash-thinking
+128K
+$0.15/M
+$1.50/M
+—
+—
+chutes logo
+mistral logo
+mistral/magistral-medium-2506
+128K
+$2.00/M
+$5.00/M
+—
+—
+mistral logo
+mistral logo
+mistral/magistral-small-2506
+128K
+$0.50/M
+$1.50/M
+—
+—
+mistral logo
+voyage logo
+voyage/voyage-3.5-lite
+—
+$0.02/M
+—
+—
+—
+voyage logo
+voyage logo
+voyage/voyage-code-2
+—
+$0.12/M
+—
+—
+—
+voyage logo
+voyage logo
+voyage/voyage-code-3
+—
+$0.18/M
+—
+—
+—
+voyage logo
+voyage logo
+voyage/voyage-finance-2
+—
+$0.12/M
+—
+—
+—
+voyage logo
+voyage logo
+voyage/voyage-law-2
+—
+$0.12/M
+—
+—
+—
+voyage logo
