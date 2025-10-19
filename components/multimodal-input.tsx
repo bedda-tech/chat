@@ -438,15 +438,18 @@ function PureModelSelectorCompact({
 
   const filteredModels = useMemo(() => {
     let models = chatModels;
-    
+
     // Apply text search filter
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      models = models.filter(
-        (model) =>
-          model.name.toLowerCase().includes(query) ||
-          model.description.toLowerCase().includes(query)
-      );
+      const queryWords = query.split(/\s+/).filter(word => word.length > 0);
+
+      models = models.filter((model) => {
+        const searchText = `${model.name} ${model.description}`.toLowerCase();
+
+        // Match if all query words are found in the combined text
+        return queryWords.every(word => searchText.includes(word));
+      });
     }
     
     // Apply tool filters
@@ -486,15 +489,23 @@ function PureModelSelectorCompact({
     });
   };
 
+  const selectedModel = useMemo(
+    () => chatModels.find((m) => m.id === optimisticModelId),
+    [optimisticModelId]
+  );
+
   return (
     <>
       <Button
-        className="aspect-square h-8 rounded-lg p-1 transition-colors hover:bg-accent"
+        className="h-8 rounded-lg px-2 transition-colors hover:bg-accent flex items-center gap-1.5"
         onClick={() => setIsOpen(true)}
         variant="ghost"
         type="button"
       >
         <CpuIcon size={16} />
+        <span className="text-xs font-medium text-muted-foreground hidden sm:inline">
+          {selectedModel?.name || "Select Model"}
+        </span>
       </Button>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="max-w-lg">
