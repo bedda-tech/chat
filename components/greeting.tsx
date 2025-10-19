@@ -1,45 +1,76 @@
+import type { UseChatHelpers } from "@ai-sdk/react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import type { ChatMessage } from "@/lib/types";
+import { SuggestedActions } from "./suggested-actions";
+import type { VisibilityType } from "./visibility-selector";
 
-export const Greeting = () => {
+type GreetingProps = {
+  chatId: string;
+  sendMessage: UseChatHelpers<ChatMessage>["sendMessage"];
+  selectedVisibilityType: VisibilityType;
+  onModelChange?: (modelId: string) => void;
+};
+
+export const Greeting = ({
+  chatId,
+  sendMessage,
+  selectedVisibilityType,
+  onModelChange,
+}: GreetingProps) => {
   return (
     <div
-      className="mx-auto mt-1 flex size-full max-w-3xl flex-col items-center justify-center px-2 md:mt-8 md:px-8 lg:mt-16"
+      className="flex h-full w-full flex-col items-center justify-center gap-4 px-4 py-4"
       key="overview"
     >
+      {/* Logo container - scales based on available space */}
       <motion.div
         animate={{ opacity: 1, y: 0 }}
-        className="mb-2 flex justify-center md:mb-6"
+        className="flex w-full max-w-xs shrink-0 justify-center"
         exit={{ opacity: 0, y: 10 }}
         initial={{ opacity: 0, y: 10 }}
         transition={{ delay: 0.3 }}
       >
         <Image
           alt="Bedda.ai Logo"
-          className="h-auto w-full max-w-[120px] sm:max-w-[160px] md:max-w-[200px] lg:max-w-[240px] xl:max-w-[280px]"
+          className="h-auto w-full object-contain"
           height={400}
           priority
           src="/images/bedda-logo-large-transparent.png"
           width={800}
         />
       </motion.div>
+
+      {/* Text container - responsive sizing */}
       <motion.div
         animate={{ opacity: 1, y: 0 }}
-        className="mb-1 text-center text-sm md:mb-2 md:text-xl lg:text-2xl"
+        className="flex shrink-0 flex-col gap-2 text-center"
         exit={{ opacity: 0, y: 10 }}
         initial={{ opacity: 0, y: 10 }}
         transition={{ delay: 0.5 }}
       >
-        Welcome to <span className="font-bold">bedda.ai</span> chat!
+        <div className="font-normal text-base sm:text-lg md:text-xl">
+          Welcome to <span className="font-bold">bedda.ai</span> chat!
+        </div>
+        <div className="text-muted-foreground text-sm sm:text-base">
+          What would you like to do today?
+        </div>
       </motion.div>
+
+      {/* Suggested actions - grows to fill space but doesn't overflow */}
       <motion.div
         animate={{ opacity: 1, y: 0 }}
-        className="hidden text-center text-muted-foreground text-sm sm:block md:text-base lg:text-xl"
-        exit={{ opacity: 0, y: 10 }}
-        initial={{ opacity: 0, y: 10 }}
-        transition={{ delay: 0.6 }}
+        className="w-full max-w-2xl shrink-0"
+        exit={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 20 }}
+        transition={{ delay: 0.7 }}
       >
-        What would you like to do today?
+        <SuggestedActions
+          chatId={chatId}
+          onModelChange={onModelChange}
+          selectedVisibilityType={selectedVisibilityType}
+          sendMessage={sendMessage}
+        />
       </motion.div>
     </div>
   );

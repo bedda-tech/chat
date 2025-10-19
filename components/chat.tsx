@@ -176,8 +176,11 @@ export function Chat({
           isArtifactVisible={isArtifactVisible}
           isReadonly={isReadonly}
           messages={messages}
+          onModelChange={setCurrentModelId}
           regenerate={regenerate}
           selectedModelId={initialChatModel}
+          selectedVisibilityType={visibilityType}
+          sendMessage={sendMessage}
           setMessages={setMessages}
           status={status}
           votes={votes}

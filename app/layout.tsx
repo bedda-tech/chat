@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Noto_Sans, Noto_Sans_Mono } from "next/font/google";
 import { Toaster } from "sonner";
@@ -12,12 +13,24 @@ export const metadata: Metadata = {
   description: "AI-powered chat application by bedda",
   icons: {
     icon: [
-      { url: "/images/favicons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/images/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      {
+        url: "/images/favicons/favicon-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
+      },
+      {
+        url: "/images/favicons/favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
       { url: "/images/favicons/favicon.ico", sizes: "any" },
     ],
     apple: [
-      { url: "/images/favicons/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      {
+        url: "/images/favicons/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
     ],
   },
   manifest: "/images/favicons/site.webmanifest",
@@ -90,7 +103,10 @@ export default function RootLayout({
           enableSystem
         >
           <Toaster position="top-center" />
-          <SessionProvider>{children}</SessionProvider>
+          <SessionProvider>
+            {children}
+            <Analytics />
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -44,7 +44,6 @@ import {
   StopIcon,
 } from "./icons";
 import { PreviewAttachment } from "./preview-attachment";
-import { SuggestedActions } from "./suggested-actions";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import {
@@ -65,11 +64,11 @@ function PureMultimodalInput({
   stop,
   attachments,
   setAttachments,
-  messages,
+  messages: _messages,
   setMessages,
   sendMessage,
   className,
-  selectedVisibilityType,
+  selectedVisibilityType: _selectedVisibilityType,
   selectedModelId,
   onModelChange,
   usage,
@@ -244,17 +243,6 @@ function PureMultimodalInput({
 
   return (
     <div className={cn("relative flex w-full flex-col gap-4", className)}>
-      {messages.length === 0 &&
-        attachments.length === 0 &&
-        uploadQueue.length === 0 && (
-          <SuggestedActions
-            chatId={chatId}
-            selectedVisibilityType={selectedVisibilityType}
-            sendMessage={sendMessage}
-            onModelChange={onModelChange}
-          />
-        )}
-
       <input
         className="-top-4 -left-4 pointer-events-none fixed size-0.5 opacity-0"
         multiple

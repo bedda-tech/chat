@@ -21,6 +21,9 @@ type MessagesProps = {
   isReadonly: boolean;
   isArtifactVisible: boolean;
   selectedModelId: string;
+  sendMessage: UseChatHelpers<ChatMessage>["sendMessage"];
+  selectedVisibilityType: string;
+  onModelChange?: (modelId: string) => void;
 };
 
 function PureMessages({
@@ -31,7 +34,10 @@ function PureMessages({
   setMessages,
   regenerate,
   isReadonly,
-  selectedModelId,
+  selectedModelId: _selectedModelId,
+  sendMessage,
+  selectedVisibilityType,
+  onModelChange,
 }: MessagesProps) {
   const {
     containerRef: messagesContainerRef,
@@ -61,13 +67,20 @@ function PureMessages({
 
   return (
     <div
-      className="overscroll-behavior-contain -webkit-overflow-scrolling-touch flex-1 touch-pan-y overflow-y-scroll"
+      className="overscroll-behavior-contain -webkit-overflow-scrolling-touch flex flex-1 touch-pan-y overflow-y-scroll"
       ref={messagesContainerRef}
       style={{ overflowAnchor: "none" }}
     >
-      <Conversation className="mx-auto flex min-w-0 max-w-4xl flex-col gap-4 md:gap-6">
-        <ConversationContent className="flex flex-col gap-4 px-2 py-4 md:gap-6 md:px-4">
-          {messages.length === 0 && <Greeting />}
+      <Conversation className="mx-auto flex min-w-0 max-w-4xl flex-1 flex-col gap-4 md:gap-6">
+        <ConversationContent className="flex flex-1 flex-col gap-4 px-2 py-4 md:gap-6 md:px-4">
+          {messages.length === 0 && (
+            <Greeting
+              chatId={chatId}
+              onModelChange={onModelChange}
+              selectedVisibilityType={selectedVisibilityType}
+              sendMessage={sendMessage}
+            />
+          )}
 
           {messages.map((message, index) => (
             <PreviewMessage

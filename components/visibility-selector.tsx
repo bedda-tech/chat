@@ -10,12 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useChatVisibility } from "@/hooks/use-chat-visibility";
 import { cn } from "@/lib/utils";
-import {
-  CheckCircleFillIcon,
-  ChevronDownIcon,
-  GlobeIcon,
-  LockIcon,
-} from "./icons";
+import { CheckCircleFillIcon, GlobeIcon, LockIcon } from "./icons";
 
 export type VisibilityType = "private" | "public";
 
@@ -69,20 +64,19 @@ export function VisibilitySelector({
         )}
       >
         <Button
-          className="hidden h-8 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 md:flex md:h-fit md:px-2"
+          className="flex h-8 h-fit cursor-pointer px-2"
           data-testid="visibility-selector"
           variant="outline"
         >
           {selectedVisibility?.icon}
           <span className="md:sr-only">{selectedVisibility?.label}</span>
-          <ChevronDownIcon />
         </Button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="start" className="min-w-[300px]">
         {visibilities.map((visibility) => (
           <DropdownMenuItem
-            className="group/item flex flex-row items-center justify-between gap-4"
+            className="group/item flex cursor-pointer flex-row items-center justify-between gap-4"
             data-active={visibility.id === visibilityType}
             data-testid={`visibility-selector-item-${visibility.id}`}
             key={visibility.id}

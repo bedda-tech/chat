@@ -28,7 +28,7 @@ function PureSuggestedActions({
   const suggestedActions: SuggestionConfig[] = [
     {
       emoji: "🎨",
-      text: "Generate a live Corallium rubrum coral from the reefs of Sciacca, Sicily, Italy",
+      text: "Generate an image of a Corallium rubrum coral from the reefs of Sciacca, Sicily",
       modelId: "google-gemini-2.5-flash-image",
     },
     {
@@ -49,7 +49,7 @@ function PureSuggestedActions({
 
   return (
     <div
-      className="grid w-full gap-2 md:grid-cols-2 lg:gap-2.5"
+      className="grid w-full gap-2 sm:grid-cols-2"
       data-testid="suggested-actions"
     >
       {suggestedActions.map((config, index) => (
@@ -61,7 +61,7 @@ function PureSuggestedActions({
           transition={{ delay: 0.05 * index }}
         >
           <Suggestion
-            className="h-auto w-full whitespace-normal p-2.5 text-left text-sm md:p-2 md:text-xs lg:p-3 lg:text-sm xl:text-base"
+            className="h-auto w-full whitespace-normal p-3 text-left text-sm"
             onClick={(suggestion) => {
               // If a specific model is recommended, switch to it
               if (config.modelId && onModelChange) {
@@ -76,7 +76,7 @@ function PureSuggestedActions({
             }}
             suggestion={config.text}
           >
-            <span className="mr-2 text-base md:text-sm lg:text-base xl:text-lg">
+            <span className="mr-2 text-base">
               {config.emoji}
             </span>
             {config.text}
