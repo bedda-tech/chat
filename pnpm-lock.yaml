@@ -76,7 +76,7 @@ importers:
         version: 3.1.4
       '@vercel/otel':
         specifier: ^2.0.1
-        version: 2.0.1(@opentelemetry/api-logs@0.206.0)(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.206.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-logs@0.206.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))
+        version: 2.0.1(@opentelemetry/api-logs@0.206.0)(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.206.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-logs@0.206.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))
       '@vercel/postgres':
         specifier: ^0.10.0
         version: 0.10.0
@@ -177,8 +177,8 @@ importers:
         specifier: 19.2.0
         version: 19.2.0
       react-data-grid:
-        specifier: 7.0.0-beta.58
-        version: 7.0.0-beta.58(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+        specifier: 7.0.0-beta.47
+        version: 7.0.0-beta.47(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       react-dom:
         specifier: 19.2.0
         version: 19.2.0(react@19.2.0)
@@ -3426,11 +3426,11 @@ packages:
       '@types/react-dom':
         optional: true
 
-  react-data-grid@7.0.0-beta.58:
-    resolution: {integrity: sha512-ND7BsMOJRF/KHUeKU465AmmofoKruQFTe+3GaACiHja1ytd9+lh4ODn0oXPgm/deJgmAXJVORv+fMSXlk4OVTQ==}
+  react-data-grid@7.0.0-beta.47:
+    resolution: {integrity: sha512-28kjsmwQGD/9RXYC50zn5Zv/SQMhBBoSvG5seq0fM8XXi9TZ0zr9Z5T3YJqLwcEtoNzTOq3y0njkmdujGkIwQQ==}
     peerDependencies:
-      react: ^19.2
-      react-dom: ^19.2
+      react: ^18.0 || ^19.0
+      react-dom: ^18.0 || ^19.0
 
   react-dom@19.2.0:
     resolution: {integrity: sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==}
@@ -5629,12 +5629,12 @@ snapshots:
 
   '@vercel/oidc@3.0.3': {}
 
-  '@vercel/otel@2.0.1(@opentelemetry/api-logs@0.206.0)(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.206.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-logs@0.206.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))':
+  '@vercel/otel@2.0.1(@opentelemetry/api-logs@0.206.0)(@opentelemetry/api@1.9.0)(@opentelemetry/instrumentation@0.206.0(@opentelemetry/api@1.9.0))(@opentelemetry/resources@2.1.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-logs@0.206.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-metrics@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))':
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/api-logs': 0.206.0
       '@opentelemetry/instrumentation': 0.206.0(@opentelemetry/api@1.9.0)
-      '@opentelemetry/resources': 1.30.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/resources': 2.1.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-logs': 0.206.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-metrics': 1.30.1(@opentelemetry/api@1.9.0)
       '@opentelemetry/sdk-trace-base': 1.30.1(@opentelemetry/api@1.9.0)
@@ -7210,8 +7210,9 @@ snapshots:
       '@types/react': 19.2.2
       '@types/react-dom': 19.2.2(@types/react@19.2.2)
 
-  react-data-grid@7.0.0-beta.58(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+  react-data-grid@7.0.0-beta.47(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
+      clsx: 2.1.1
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
 
