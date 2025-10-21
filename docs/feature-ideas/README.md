@@ -173,7 +173,33 @@ Comprehensive expansion plan for new artifact types and AI tools to enhance user
 
 ---
 
-### 9. **Advanced AI Gateway Features**
+### 9. **Code Sandboxes**
+**File**: `CODE_SANDBOXES.md`
+
+Server-side containerized environments for executing code in multiple programming languages with full runtime support.
+
+**Key Features**:
+- Multi-language support (Python, Node.js, Go, Rust, Java, etc.)
+- Full runtime with package management (NPM, PyPI, etc.)
+- Persistent file systems and environment variables
+- Resource monitoring and limits
+- Streaming output and real-time execution
+- Multiple architecture options (Docker, WebAssembly, Firecracker, E2B)
+
+**Key Differences from Artifacts**:
+- Server-side vs. client-side execution
+- Any language vs. web-only technologies
+- Full system access vs. browser limitations
+- Package installation vs. static dependencies
+
+**Priority**: High (Developer/data science feature)
+**Effort**: Phased approach (2-6 months)
+**Cost**: $0 (WASM) to $100+/month (managed service)
+**Status**: Planning Phase
+
+---
+
+### 10. **Advanced AI Gateway Features**
 **File**: `ADVANCED_AI_GATEWAY_FEATURES.md`
 
 Leverage full AI Gateway potential with intelligent routing, failover, and enterprise features.
@@ -194,7 +220,7 @@ Leverage full AI Gateway potential with intelligent routing, failover, and enter
 
 ---
 
-### 10. **Real-Time Collaboration**
+### 11. **Real-Time Collaboration**
 **File**: `REAL_TIME_COLLABORATION.md`
 
 Transform the app into a team collaboration platform with live shared sessions.
@@ -215,7 +241,7 @@ Transform the app into a team collaboration platform with live shared sessions.
 
 ---
 
-### 11. **Advanced AI Capabilities**
+### 12. **Advanced AI Capabilities**
 **File**: `ADVANCED_AI_CAPABILITIES.md`
 
 Cutting-edge AI features including multi-modal interactions and autonomous task execution.
@@ -238,7 +264,7 @@ Cutting-edge AI features including multi-modal interactions and autonomous task 
 
 ---
 
-### 12. **Enterprise Integrations & API Ecosystem**
+### 13. **Enterprise Integrations & API Ecosystem**
 **File**: `ENTERPRISE_INTEGRATIONS.md`
 
 Comprehensive integration ecosystem for enterprise workflows and business processes.
@@ -259,7 +285,7 @@ Comprehensive integration ecosystem for enterprise workflows and business proces
 
 ---
 
-### 13. **Mobile & Accessibility Features**
+### 14. **Mobile & Accessibility Features**
 **File**: `MOBILE_AND_ACCESSIBILITY.md`
 
 Mobile-first design and advanced accessibility for inclusive access across all devices.
@@ -289,6 +315,7 @@ Mobile-first design and advanced accessibility for inclusive access across all d
 | RAG/Document Search | **High** | 2-3 weeks | High | Planning |
 | AI Video Generation | **High** | 2-3 weeks | High | Planning |
 | Artifacts & Tools Expansion | **High** | 3-6 months | High | Planning |
+| Code Sandboxes | **High** | 2-6 months | High | Planning |
 | Advanced AI Gateway | **High** | 2-3 months | High | Planning |
 | Real-Time Collaboration | **High** | 2-3 months | High | Planning |
 | Advanced AI Capabilities | **High** | 2-3 months | High | Planning |
@@ -315,9 +342,10 @@ Mobile-first design and advanced accessibility for inclusive access across all d
 
 ### Phase 3: Advanced Features (Months 6-8)
 11. **Artifacts & Tools Expansion (Phase 2-3)** - Advanced artifacts and tools
-12. **Real-Time Collaboration** - Team features
-13. **Advanced AI Capabilities** - Cutting-edge AI
-14. **Enterprise Integrations** - Business ecosystem
+12. **Code Sandboxes (Phase 1-2)** - Python, Node.js execution environments
+13. **Real-Time Collaboration** - Team features
+14. **Advanced AI Capabilities** - Cutting-edge AI
+15. **Enterprise Integrations** - Business ecosystem
 
 ### Phase 4: Optimization (Months 9-12)
 - A/B testing and optimization
@@ -447,6 +475,6 @@ For questions about these feature ideas or implementation guidance, please refer
 ---
 
 **Last Updated**: 2025-10-21
-**Total Features**: 13
+**Total Features**: 14
 **Total Estimated Value**: $500k+/month (at 100k users)
 **Total Estimated Effort**: 12-18 months (2-3 developers)
