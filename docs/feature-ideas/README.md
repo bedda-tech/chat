@@ -126,7 +126,54 @@ Enhanced real-time streaming with rich UI components, reasoning visualization, a
 
 ---
 
-### 7. **Advanced AI Gateway Features**
+### 7. **AI Video Generation**
+**File**: `AI_VIDEO_GENERATION.md`
+
+AI-powered video generation from text prompts using cost-effective providers.
+
+**Key Features**:
+- Text-to-video generation (3-10 seconds)
+- Multiple quality tiers (budget to premium)
+- Image-to-video animation
+- Queue-based processing
+- Tier-based quotas (Pro: 2/month, Premium: 10/month)
+
+**Recommended Provider**: Kling AI ($0.01-0.05 per 5s video)
+**Priority**: High (Premium tier differentiator)
+**Effort**: 2-3 weeks
+**Cost**: $300-500/month (at 10k users)
+**Status**: Planning Phase
+
+---
+
+### 8. **Artifacts & Tools Expansion**
+**File**: `ARTIFACTS_AND_TOOLS_EXPANSION.md`
+
+Comprehensive expansion plan for new artifact types and AI tools to enhance user capabilities.
+
+**New Artifacts (12 types)**:
+- Chart, Diagram, HTML Preview, Markdown Editor
+- JSON Viewer, Advanced Tables, SVG Editor
+- SQL Query Editor, Notebook, 3D Viewer
+- Presentations, Form Builder
+
+**New AI Tools (22 tools)**:
+- Web search, URL extraction, PDF reading, Document conversion
+- Email sending, Database queries, Calendar integration
+- Translation, Summarization, Language detection
+- Speech generation, Content moderation, Entity extraction
+- Text classification, Quiz generation, Image editing
+- Background removal, Music/Video generation
+- Task creation, Math calculation, Code review
+
+**Priority**: High (Core feature expansion)
+**Effort**: Phased approach (3-6 months)
+**Impact**: 10x feature expansion
+**Status**: Planning Phase
+
+---
+
+### 9. **Advanced AI Gateway Features**
 **File**: `ADVANCED_AI_GATEWAY_FEATURES.md`
 
 Leverage full AI Gateway potential with intelligent routing, failover, and enterprise features.
@@ -147,7 +194,7 @@ Leverage full AI Gateway potential with intelligent routing, failover, and enter
 
 ---
 
-### 8. **Real-Time Collaboration**
+### 10. **Real-Time Collaboration**
 **File**: `REAL_TIME_COLLABORATION.md`
 
 Transform the app into a team collaboration platform with live shared sessions.
@@ -168,7 +215,7 @@ Transform the app into a team collaboration platform with live shared sessions.
 
 ---
 
-### 9. **Advanced AI Capabilities**
+### 11. **Advanced AI Capabilities**
 **File**: `ADVANCED_AI_CAPABILITIES.md`
 
 Cutting-edge AI features including multi-modal interactions and autonomous task execution.
@@ -191,7 +238,7 @@ Cutting-edge AI features including multi-modal interactions and autonomous task 
 
 ---
 
-### 10. **Enterprise Integrations & API Ecosystem**
+### 12. **Enterprise Integrations & API Ecosystem**
 **File**: `ENTERPRISE_INTEGRATIONS.md`
 
 Comprehensive integration ecosystem for enterprise workflows and business processes.
@@ -212,7 +259,7 @@ Comprehensive integration ecosystem for enterprise workflows and business proces
 
 ---
 
-### 11. **Mobile & Accessibility Features**
+### 13. **Mobile & Accessibility Features**
 **File**: `MOBILE_AND_ACCESSIBILITY.md`
 
 Mobile-first design and advanced accessibility for inclusive access across all devices.
@@ -240,6 +287,8 @@ Mobile-first design and advanced accessibility for inclusive access across all d
 | Usage Analytics | **Critical** | 1-2 weeks | High | Planning |
 | Prompt Caching | **High** | 2-3 days | Immediate | Planning |
 | RAG/Document Search | **High** | 2-3 weeks | High | Planning |
+| AI Video Generation | **High** | 2-3 weeks | High | Planning |
+| Artifacts & Tools Expansion | **High** | 3-6 months | High | Planning |
 | Advanced AI Gateway | **High** | 2-3 months | High | Planning |
 | Real-Time Collaboration | **High** | 2-3 months | High | Planning |
 | Advanced AI Capabilities | **High** | 2-3 months | High | Planning |
@@ -258,14 +307,17 @@ Mobile-first design and advanced accessibility for inclusive access across all d
 
 ### Phase 2: Core Features (Months 3-5)
 5. **RAG & Document Search** - Premium tier feature
-6. **Advanced Streaming Features** - Enhanced UX
-7. **Advanced AI Gateway Features** - Enterprise capabilities
-8. **Dynamic Model Discovery** - Reduced maintenance
+6. **Artifacts & Tools Expansion (Phase 1)** - Chart, Diagram, core tools
+7. **AI Video Generation** - Premium tier differentiator
+8. **Advanced Streaming Features** - Enhanced UX
+9. **Advanced AI Gateway Features** - Enterprise capabilities
+10. **Dynamic Model Discovery** - Reduced maintenance
 
 ### Phase 3: Advanced Features (Months 6-8)
-9. **Real-Time Collaboration** - Team features
-10. **Advanced AI Capabilities** - Cutting-edge AI
-11. **Enterprise Integrations** - Business ecosystem
+11. **Artifacts & Tools Expansion (Phase 2-3)** - Advanced artifacts and tools
+12. **Real-Time Collaboration** - Team features
+13. **Advanced AI Capabilities** - Cutting-edge AI
+14. **Enterprise Integrations** - Business ecosystem
 
 ### Phase 4: Optimization (Months 9-12)
 - A/B testing and optimization
@@ -394,7 +446,7 @@ For questions about these feature ideas or implementation guidance, please refer
 
 ---
 
-**Last Updated**: 2025-10-20
-**Total Features**: 11
+**Last Updated**: 2025-10-21
+**Total Features**: 13
 **Total Estimated Value**: $500k+/month (at 100k users)
 **Total Estimated Effort**: 12-18 months (2-3 developers)

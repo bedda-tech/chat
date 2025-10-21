@@ -155,7 +155,10 @@ export function ModelSelector({
                       toggleToolFilter(tool);
                     }}
                   >
-                    <span className="mr-1">{getToolIcon(tool)}</span>
+                    {(() => {
+                      const Icon = getToolIcon(tool);
+                      return <Icon className="mr-1 h-3 w-3" />;
+                    })()}
                     {getToolDisplayName(tool)}
                   </Badge>
                 ))}
@@ -219,7 +222,10 @@ export function ModelSelector({
                             variant="secondary"
                             className="h-5 px-1.5 text-[10px]"
                           >
-                            <span className="mr-0.5">{getToolIcon(tool)}</span>
+                            {(() => {
+                              const Icon = getToolIcon(tool);
+                              return <Icon className="mr-0.5 h-2.5 w-2.5" />;
+                            })()}
                             {getToolDisplayName(tool)}
                           </Badge>
                         ))}

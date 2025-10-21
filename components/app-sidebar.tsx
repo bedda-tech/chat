@@ -8,7 +8,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { useSWRConfig } from "swr";
 import { unstable_serialize } from "swr/infinite";
-import { PlusIcon, TrashIcon } from "@/components/icons";
+import { PlusIcon, RocketIcon, TrashIcon } from "@/components/icons";
 import { SidebarHistory, getChatHistoryPaginationKey } from "@/components/sidebar-history";
 import { SidebarUserNav } from "@/components/sidebar-user-nav";
 import { Button } from "@/components/ui/button";
@@ -125,6 +125,20 @@ export function AppSidebar({ user }: { user: User | undefined }) {
         <SidebarContent>
           <SidebarHistory user={user} />
         </SidebarContent>
+        <div className="mt-auto border-t px-3 py-2">
+          <SidebarMenu>
+            <Link
+              className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted"
+              href="/roadmap"
+              onClick={() => {
+                setOpenMobile(false);
+              }}
+            >
+              <RocketIcon size={16} />
+              <span>Roadmap</span>
+            </Link>
+          </SidebarMenu>
+        </div>
         <SidebarFooter>{user && <SidebarUserNav user={user} />}</SidebarFooter>
       </Sidebar>
 

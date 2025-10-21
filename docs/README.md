@@ -7,7 +7,7 @@ This directory contains comprehensive documentation for the bedda.ai chat applic
 ### `/feature-ideas/`
 Detailed feature proposals and implementation plans for future development. Each document includes technical specifications, code examples, cost analysis, and implementation roadmaps.
 
-**Current Documents** (6 features):
+**Current Documents** (12 features):
 
 1. **DYNAMIC_MODEL_DISCOVERY.md** - Automatically discover and integrate new AI models
    - Priority: Medium | Effort: 2-3 days | Status: Planning
@@ -31,7 +31,7 @@ Detailed feature proposals and implementation plans for future development. Each
 
 ## Quick Stats
 
-- **Total Features**: 6 documented
+- **Total Features**: 12 documented
 - **Estimated Total Value**: $350k+/month (at 100k users)
 - **Total Effort**: 4-6 months (1-2 developers)
 - **Expected Margins**: 70-80% gross profit

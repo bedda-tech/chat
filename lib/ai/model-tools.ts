@@ -2,6 +2,19 @@
  * Defines which tools are available for each model
  */
 
+import {
+  CloudSun,
+  FileText,
+  Lightbulb,
+  Image as ImageIcon,
+  BarChart3,
+  Database,
+  Mic,
+  Hash,
+  Search,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
 export type ModelTool =
   | "weather"
   | "documents"
@@ -77,19 +90,19 @@ export function getToolDisplayName(tool: ModelTool): string {
 }
 
 /**
- * Get icon/emoji for a tool
+ * Get icon for a tool
  */
-export function getToolIcon(tool: ModelTool): string {
-  const icons: Record<ModelTool, string> = {
-    weather: "🌤️",
-    documents: "📄",
-    suggestions: "💡",
-    images: "🖼️",
-    analysis: "📊",
-    "structured-data": "🔷",
-    "audio-transcription": "🎙️",
-    embeddings: "🔢",
-    similarity: "🔍",
+export function getToolIcon(tool: ModelTool): LucideIcon {
+  const icons: Record<ModelTool, LucideIcon> = {
+    weather: CloudSun,
+    documents: FileText,
+    suggestions: Lightbulb,
+    images: ImageIcon,
+    analysis: BarChart3,
+    "structured-data": Database,
+    "audio-transcription": Mic,
+    embeddings: Hash,
+    similarity: Search,
   };
   return icons[tool];
 }
