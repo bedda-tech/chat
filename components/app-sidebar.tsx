@@ -2,163 +2,79 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import type { User } from "next-auth";
-import { useState } from "react";
-import { toast } from "sonner";
-import { useSWRConfig } from "swr";
-import { unstable_serialize } from "swr/infinite";
-import { PlusIcon, RocketIcon, TrashIcon } from "@/components/icons";
-import { SidebarHistory, getChatHistoryPaginationKey } from "@/components/sidebar-history";
+import { RocketIcon } from "@/components/icons";
+import { SidebarHistory } from "@/components/sidebar-history";
 import { SidebarUserNav } from "@/components/sidebar-user-nav";
-import { Button } from "@/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "./ui/alert-dialog";
 
 export function AppSidebar({ user }: { user: User | undefined }) {
-  const router = useRouter();
   const { setOpenMobile } = useSidebar();
-  const { mutate } = useSWRConfig();
-  const [showDeleteAllDialog, setShowDeleteAllDialog] = useState(false);
-
-  const handleDeleteAll = () => {
-    const deletePromise = fetch("/api/history", {
-      method: "DELETE",
-    });
-
-    toast.promise(deletePromise, {
-      loading: "Deleting all chats...",
-      success: () => {
-        mutate(unstable_serialize(getChatHistoryPaginationKey));
-        router.push("/");
-        setShowDeleteAllDialog(false);
-        return "All chats deleted successfully";
-      },
-      error: "Failed to delete all chats",
-    });
-  };
 
   return (
-    <>
-      <Sidebar className="group-data-[side=left]:border-r-0">
-        <SidebarHeader>
-          <SidebarMenu>
-            <div className="flex flex-row items-center justify-between">
-              <Link
-                className="flex flex-row items-center"
-                href="/"
-                onClick={() => {
-                  setOpenMobile(false);
-                }}
-              >
-                <Image
-                  src="/images/bedda-coral-icon-background-transparent.png"
-                  alt="Bedda Logo"
-                  width={32}
-                  height={32}
-                  className="h-8 w-8 shrink-0"
-                  priority
-                  unoptimized
-                />
-                <span className="cursor-pointer rounded-md px-2 font-semibold text-lg hover:bg-muted">
-                  bedda.ai
-                </span>
-              </Link>
-              <div className="flex flex-row gap-1">
-                {user && (
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button
-                        className="h-8 p-1 md:h-fit md:p-2"
-                        onClick={() => setShowDeleteAllDialog(true)}
-                        type="button"
-                        variant="ghost"
-                      >
-                        <TrashIcon />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent align="end" className="hidden md:block">
-                      Delete All Chats
-                    </TooltipContent>
-                  </Tooltip>
-                )}
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      className="h-8 p-1 md:h-fit md:p-2"
+    <Sidebar className="group-data-[side=left]:border-r-0">
+      <SidebarHeader>
+        <SidebarMenu>
+          <Link
+            className="flex flex-row items-center"
+            href="/"
+            onClick={() => {
+              setOpenMobile(false);
+            }}
+          >
+            <Image
+              alt="Bedda Logo"
+              className="h-8 w-8 shrink-0"
+              height={32}
+              priority
+              src="/images/bedda-coral-icon-background-transparent.png"
+              unoptimized
+              width={32}
+            />
+            <span className="cursor-pointer rounded-md px-2 font-semibold text-lg hover:bg-muted">
+              bedda.ai
+            </span>
+          </Link>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarHistory user={user} />
+        <div className="mt-auto">
+          <SidebarGroup>
+            <SidebarGroupLabel>Docs</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild>
+                    <Link
+                      href="/roadmap"
                       onClick={() => {
                         setOpenMobile(false);
-                        router.push("/");
-                        router.refresh();
                       }}
-                      type="button"
-                      variant="ghost"
                     >
-                      <PlusIcon />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent align="end" className="hidden md:block">
-                    New Chat
-                  </TooltipContent>
-                </Tooltip>
-              </div>
-            </div>
-          </SidebarMenu>
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarHistory user={user} />
-        </SidebarContent>
-        <div className="mt-auto border-t px-3 py-2">
-          <SidebarMenu>
-            <Link
-              className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted"
-              href="/roadmap"
-              onClick={() => {
-                setOpenMobile(false);
-              }}
-            >
-              <RocketIcon size={16} />
-              <span>Roadmap</span>
-            </Link>
-          </SidebarMenu>
+                      <RocketIcon />
+                      <span>Roadmap</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
         </div>
-        <SidebarFooter>{user && <SidebarUserNav user={user} />}</SidebarFooter>
-      </Sidebar>
-
-      <AlertDialog onOpenChange={setShowDeleteAllDialog} open={showDeleteAllDialog}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete all chats?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete all your
-              chats and remove them from our servers.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleDeleteAll}>
-              Delete All
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </>
+      </SidebarContent>
+      <SidebarFooter>{user && <SidebarUserNav user={user} />}</SidebarFooter>
+    </Sidebar>
   );
 }

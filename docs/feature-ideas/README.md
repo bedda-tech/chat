@@ -305,54 +305,237 @@ Mobile-first design and advanced accessibility for inclusive access across all d
 
 ---
 
-## 📊 Priority Matrix
+## 📊 Priority Matrix (Sorted by Importance → Difficulty)
 
-| Feature | Priority | Effort | ROI | Status |
-|---------|----------|--------|-----|--------|
-| Pricing & Monetization | **Critical** | 1-2 months | High | Planning |
-| Usage Analytics | **Critical** | 1-2 weeks | High | Planning |
-| Prompt Caching | **High** | 2-3 days | Immediate | Planning |
-| RAG/Document Search | **High** | 2-3 weeks | High | Planning |
-| AI Video Generation | **High** | 2-3 weeks | High | Planning |
-| Artifacts & Tools Expansion | **High** | 3-6 months | High | Planning |
-| Code Sandboxes | **High** | 2-6 months | High | Planning |
-| Advanced AI Gateway | **High** | 2-3 months | High | Planning |
-| Real-Time Collaboration | **High** | 2-3 months | High | Planning |
-| Advanced AI Capabilities | **High** | 2-3 months | High | Planning |
-| Enterprise Integrations | **High** | 2-3 months | High | Planning |
-| Mobile & Accessibility | **High** | 1-2 months | High | Planning |
-| Advanced Streaming | Medium | 1-2 weeks | Medium | Planning |
-| Dynamic Model Discovery | Medium | 2-3 days | Medium | Planning |
+### 🚨 **CRITICAL MVP** - Must Have to Launch Sustainably
+These features prevent financial loss and enable basic monetization.
 
-## 🗺️ Recommended Implementation Order
+| Feature | Priority | Effort | Time | ROI | Why Critical |
+|---------|----------|--------|------|-----|--------------|
+| **Usage Analytics & Monitoring** | ⚠️ CRITICAL | Medium | 1-2 weeks | Immediate | **Cannot monetize without tracking**. Required to prevent cost overruns. |
+| **Rate Limiting** | ⚠️ CRITICAL | Low | 2-3 days | Immediate | **Prevents abuse** and runaway costs. Must implement ASAP. |
+| **Basic Tier System** | ⚠️ CRITICAL | Low | 3-4 days | Immediate | **Enforces usage limits** (free: 75 msgs, pro: 750 msgs). |
 
-### Phase 1: Foundation (Months 1-2)
-1. **Usage Analytics & Monitoring** - Required for all other features
-2. **Pricing & Monetization** - Core business model
-3. **Prompt Caching** - Quick win, immediate cost savings
-4. **Mobile & Accessibility** - User experience foundation
+**Total Critical MVP Time**: ~2-3 weeks
+**Impact**: Prevents financial loss, enables controlled growth
 
-### Phase 2: Core Features (Months 3-5)
-5. **RAG & Document Search** - Premium tier feature
-6. **Artifacts & Tools Expansion (Phase 1)** - Chart, Diagram, core tools
-7. **AI Video Generation** - Premium tier differentiator
-8. **Advanced Streaming Features** - Enhanced UX
-9. **Advanced AI Gateway Features** - Enterprise capabilities
-10. **Dynamic Model Discovery** - Reduced maintenance
+---
 
-### Phase 3: Advanced Features (Months 6-8)
-11. **Artifacts & Tools Expansion (Phase 2-3)** - Advanced artifacts and tools
-12. **Code Sandboxes (Phase 1-2)** - Python, Node.js execution environments
-13. **Real-Time Collaboration** - Team features
-14. **Advanced AI Capabilities** - Cutting-edge AI
-15. **Enterprise Integrations** - Business ecosystem
+### 🍎 **LOW-HANGING FRUIT** - Quick Wins After MVP
+High impact, low effort features to implement immediately after critical MVP.
 
-### Phase 4: Optimization (Months 9-12)
-- A/B testing and optimization
-- Advanced analytics
-- Performance tuning
-- User feedback integration
-- Market expansion
+| Feature | Priority | Effort | Time | ROI | Why Quick Win |
+|---------|----------|--------|------|-----|---------------|
+| **Prompt Caching** | High | Very Low | 2-3 days | 50-90% cost savings | **Immediate cost reduction**. SDK already supports it. |
+| **Mobile Touch Optimizations** | High | Low | 3-4 days | High UX | **Already started** in codebase (sidebar, buttons, input). |
+| **PWA Support** | Medium | Very Low | 1-2 days | Medium UX | **Native app feel**. Next.js built-in support. |
+| **High Contrast Mode** | Medium | Low | 2-3 days | Accessibility | **CSS-based** changes. WCAG compliance. |
+| **Dynamic Model Discovery** | Medium | Low | 2-3 days | Reduced ops | **AI Gateway API**. No manual config needed. |
+
+**Total Quick Wins Time**: ~2 weeks
+**Impact**: Major cost savings (50-90%), better UX, accessibility compliance
+
+---
+
+### 💰 **MONETIZATION FOUNDATION** - Revenue Enablers
+Features required to actually charge customers and grow revenue.
+
+| Feature | Priority | Effort | Time | ROI | Dependencies |
+|---------|----------|--------|------|-----|--------------|
+| **Stripe Integration** | Critical | Medium | 1 week | Revenue | Usage Analytics |
+| **Pricing Page & Plans** | Critical | Low | 2-3 days | Revenue | Stripe, Rate Limiting |
+| **User Dashboard** | High | Medium | 1 week | Transparency | Usage Analytics |
+| **Upgrade/Downgrade Flow** | High | Medium | 3-4 days | Revenue | Stripe, Tier System |
+| **Usage Notifications** | Medium | Low | 2-3 days | Retention | Usage Analytics |
+
+**Total Monetization Time**: ~3-4 weeks
+**Impact**: Revenue generation, customer retention
+
+---
+
+### 🚀 **CORE PRODUCT FEATURES** - Differentiation & Value
+Features that make the product competitive and valuable.
+
+| Feature | Priority | Effort | Time | ROI | Timeline |
+|---------|----------|--------|------|-----|----------|
+| **RAG & Document Search** | High | High | 2-3 weeks | Premium feature | Month 2-3 |
+| **Code Sandboxes (MVP)** | High | High | 3-4 weeks | Developer feature | Month 3-4 |
+| **Advanced Streaming** | Medium | Medium | 1-2 weeks | UX enhancement | Month 2 |
+| **Artifacts Expansion** | High | Very High | 3-6 months | Feature depth | Month 3-8 |
+| **AI Video Generation** | Medium | High | 2-3 weeks | Premium feature | Month 4-5 |
+
+**Total Core Features Time**: 3-6 months (phased)
+**Impact**: Product differentiation, premium tier value
+
+---
+
+### 🏢 **ENTERPRISE & SCALE** - Long-term Growth
+Features for enterprise customers and scaling to large user bases.
+
+| Feature | Priority | Effort | Time | Timeline |
+|---------|----------|--------|------|----------|
+| **Advanced AI Gateway** | High | Very High | 2-3 months | Month 4-6 |
+| **Real-Time Collaboration** | High | Very High | 2-3 months | Month 5-7 |
+| **Enterprise Integrations** | Medium | Very High | 2-3 months | Month 6-8 |
+| **Advanced AI Capabilities** | Medium | Very High | 2-3 months | Month 7-9 |
+
+**Total Enterprise Time**: 6-9 months
+**Impact**: Enterprise sales, team features, higher revenue per customer
+
+---
+
+## 🗺️ **REVISED Implementation Roadmap**
+
+### **Week 1-2: Critical MVP** 🚨
+**Goal**: Stop financial bleeding, enable basic monetization
+
+1. **Usage Analytics & Rate Limiting** (Week 1) ✅ **COMPLETED**
+   - [x] Database schema for usage tracking (1 day)
+   - [x] Rate limiting middleware (1 day)
+   - [x] Basic usage tracking service (2 days)
+   - [x] Integration into chat API (1 day)
+   - [x] Documentation and testing (1 day)
+
+2. **Basic Tier System** (Week 2) ⚠️ **IN PROGRESS**
+   - [x] User tier system in DB (completed with usage analytics)
+   - [x] Tier enforcement middleware (completed with rate limiting)
+   - [ ] Basic user dashboard (2 days) - **NEXT**
+   - [ ] Testing & deployment (1 day)
+
+**Deliverable**: App can safely operate without runaway costs ✅
+**Cost Impact**: Prevents $1k-10k/month in potential overages ✅
+
+**Files Changed:**
+- `lib/db/schema.ts` - Added UserTier, UserUsage, UsageEvent, RateLimit tables
+- `lib/usage/tracking.ts` - Core usage tracking and rate limiting service
+- `lib/middleware/rate-limit.ts` - Rate limiting middleware
+- `app/(chat)/api/chat/route.ts` - Integration with chat API
+- `lib/db/migrations/0008_usage_tracking.sql` - Database migration
+- `CHANGELOG.md` - Documentation of changes
+- `lib/usage/README.md` - System documentation
+
+---
+
+### **Week 3-4: Quick Wins** 🍎
+**Goal**: Reduce costs, improve UX, accessibility
+
+1. **Prompt Caching** (2-3 days)
+   - [ ] Enable caching in AI SDK config
+   - [ ] Add cache headers to system prompts
+   - [ ] Cache conversation history
+   - [ ] Monitor cache hit rates
+
+2. **Mobile Optimizations** (3-4 days)
+   - [ ] Finish mobile sidebar work (already started)
+   - [ ] Complete touch-optimized buttons
+   - [ ] Responsive input improvements
+   - [ ] iOS viewport fixes
+
+3. **PWA & Accessibility** (3-4 days)
+   - [ ] Add manifest.json and service worker
+   - [ ] High contrast mode toggle
+   - [ ] ARIA labels audit
+   - [ ] Keyboard navigation
+
+4. **Dynamic Model Discovery** (2 days)
+   - [ ] AI Gateway model listing API
+   - [ ] Auto-sync to database
+   - [ ] Pricing auto-update
+
+**Deliverable**: 50-90% cost reduction, better UX, WCAG compliance
+**Cost Impact**: $200+ savings per 1000 users/month
+
+---
+
+### **Week 5-8: Monetization Foundation** 💰
+**Goal**: Start charging customers, generate revenue
+
+1. **Stripe Integration** (Week 5)
+   - [ ] Stripe setup and webhooks
+   - [ ] Subscription management
+   - [ ] Payment flow
+
+2. **Pricing & Plans** (Week 6)
+   - [ ] Pricing page UI
+   - [ ] Plan comparison
+   - [ ] Upgrade/downgrade flows
+
+3. **User Dashboard** (Week 7)
+   - [ ] Usage analytics dashboard
+   - [ ] Billing history
+   - [ ] Usage notifications
+
+4. **Testing & Launch** (Week 8)
+   - [ ] End-to-end payment testing
+   - [ ] Soft launch to beta users
+   - [ ] Monitor and iterate
+
+**Deliverable**: Revenue generation capability
+**Revenue Impact**: $16k/month at 10k users
+
+---
+
+### **Month 3-4: Core Features Phase 1** 🚀
+**Goal**: Build competitive features, premium tier value
+
+1. **Advanced Streaming** (2 weeks)
+2. **RAG & Document Search** (3 weeks)
+3. **Code Sandboxes MVP** (4 weeks)
+
+**Deliverable**: Premium tier features that justify $50/month pricing
+**Revenue Impact**: Higher conversion rates, reduced churn
+
+---
+
+### **Month 5-8: Core Features Phase 2** 🚀
+**Goal**: Feature depth, product differentiation
+
+1. **Artifacts Expansion** (ongoing, phased)
+2. **AI Video Generation** (3 weeks)
+3. **Advanced AI Gateway** (2-3 months)
+
+**Deliverable**: Industry-leading feature set
+**Revenue Impact**: $50k-200k/month at scale
+
+---
+
+### **Month 9+: Enterprise & Scale** 🏢
+**Goal**: Enterprise sales, team features
+
+1. **Real-Time Collaboration**
+2. **Enterprise Integrations**
+3. **Advanced AI Capabilities**
+
+**Deliverable**: Enterprise-ready platform
+**Revenue Impact**: $100k-500k/month enterprise contracts
+
+---
+
+## 🎯 **Success Metrics by Phase**
+
+### Critical MVP (Week 1-2)
+- ✅ Rate limiting active on all tiers
+- ✅ Usage tracking capturing 100% of requests
+- ✅ Cost per user < $1.00/month
+- ✅ Zero runaway cost incidents
+
+### Quick Wins (Week 3-4)
+- ✅ Cache hit rate > 60%
+- ✅ 50%+ cost reduction vs baseline
+- ✅ Mobile Lighthouse score > 85
+- ✅ WCAG 2.1 AA compliance
+
+### Monetization (Week 5-8)
+- ✅ Successful payment processing
+- ✅ 100+ paying users
+- ✅ $1k+ MRR
+- ✅ < 2% payment failure rate
+
+### Core Features (Month 3-6)
+- ✅ 20%+ premium tier adoption
+- ✅ $10k+ MRR
+- ✅ < 5% monthly churn
+- ✅ 4.5+ app store rating
 
 ## 💰 Expected Financial Impact
 

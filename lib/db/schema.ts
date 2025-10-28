@@ -76,11 +76,9 @@ export const voteDeprecated = pgTable(
       .references(() => messageDeprecated.id),
     isUpvoted: boolean("isUpvoted").notNull(),
   },
-  (table) => {
-    return {
-      pk: primaryKey({ columns: [table.chatId, table.messageId] }),
-    };
-  }
+  (table) => ({
+    pk: primaryKey({ columns: [table.chatId, table.messageId] }),
+  })
 );
 
 export type VoteDeprecated = InferSelectModel<typeof voteDeprecated>;
@@ -96,11 +94,9 @@ export const vote = pgTable(
       .references(() => message.id),
     isUpvoted: boolean("isUpvoted").notNull(),
   },
-  (table) => {
-    return {
-      pk: primaryKey({ columns: [table.chatId, table.messageId] }),
-    };
-  }
+  (table) => ({
+    pk: primaryKey({ columns: [table.chatId, table.messageId] }),
+  })
 );
 
 export type Vote = InferSelectModel<typeof vote>;
@@ -119,11 +115,9 @@ export const document = pgTable(
       .notNull()
       .references(() => user.id),
   },
-  (table) => {
-    return {
-      pk: primaryKey({ columns: [table.id, table.createdAt] }),
-    };
-  }
+  (table) => ({
+    pk: primaryKey({ columns: [table.id, table.createdAt] }),
+  })
 );
 
 export type Document = InferSelectModel<typeof document>;
@@ -171,3 +165,140 @@ export const stream = pgTable(
 );
 
 export type Stream = InferSelectModel<typeof stream>;
+
+// User tier and subscription management
+export const userTier = pgTable("UserTier", {
+  userId: uuid("userId")
+    .primaryKey()
+    .notNull()
+    .references(() => user.id),
+  tier: varchar("tier", { enum: ["free", "pro", "premium", "enterprise"] })
+    .notNull()
+    .default("free"),
+  subscriptionId: varchar("subscriptionId", { length: 255 }),
+  subscriptionStatus: varchar("subscriptionStatus", { length: 50 }),
+  currentPeriodStart: timestamp("currentPeriodStart"),
+  currentPeriodEnd: timestamp("currentPeriodEnd"),
+  cancelAtPeriodEnd: boolean("cancelAtPeriodEnd").default(false),
+  updatedAt: timestamp("updatedAt").notNull().defaultNow(),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+});
+
+export type UserTier = InferSelectModel<typeof userTier>;
+
+// User usage tracking (monthly aggregation)
+export const userUsage = pgTable(
+  "UserUsage",
+  {
+    userId: uuid("userId")
+      .notNull()
+      .references(() => user.id),
+    month: timestamp("month").notNull(), // First day of month
+
+    // Message counts
+    messageCount: varchar("messageCount", { length: 255 })
+      .notNull()
+      .default("0"),
+    freeTierUsed: varchar("freeTierUsed", { length: 255 })
+      .notNull()
+      .default("0"),
+
+    // Token counts (stored as strings to handle large numbers)
+    inputTokens: varchar("inputTokens", { length: 255 }).notNull().default("0"),
+    outputTokens: varchar("outputTokens", { length: 255 })
+      .notNull()
+      .default("0"),
+    cachedTokens: varchar("cachedTokens", { length: 255 })
+      .notNull()
+      .default("0"),
+
+    // Costs (in USD, stored as strings for precision)
+    totalCost: varchar("totalCost", { length: 50 }).notNull().default("0"),
+    cachedSavings: varchar("cachedSavings", { length: 50 })
+      .notNull()
+      .default("0"),
+
+    // Timestamps
+    createdAt: timestamp("createdAt").notNull().defaultNow(),
+    updatedAt: timestamp("updatedAt").notNull().defaultNow(),
+  },
+  (table) => ({
+    pk: primaryKey({ columns: [table.userId, table.month] }),
+  })
+);
+
+export type UserUsage = InferSelectModel<typeof userUsage>;
+
+// Individual request tracking (detailed)
+export const usageEvent = pgTable("UsageEvent", {
+  id: uuid("id").primaryKey().notNull().defaultRandom(),
+  userId: uuid("userId")
+    .notNull()
+    .references(() => user.id),
+
+  // Request metadata
+  modelId: varchar("modelId", { length: 255 }).notNull(),
+  provider: varchar("provider", { length: 50 }).notNull(),
+  sessionId: uuid("sessionId"),
+
+  // Tokens
+  inputTokens: varchar("inputTokens", { length: 255 }).notNull(),
+  outputTokens: varchar("outputTokens", { length: 255 }).notNull(),
+  cachedTokens: varchar("cachedTokens", { length: 255 }).notNull().default("0"),
+  totalTokens: varchar("totalTokens", { length: 255 }).notNull(),
+
+  // Cost (stored as string for precision)
+  cost: varchar("cost", { length: 50 }).notNull(),
+  cachedSavings: varchar("cachedSavings", { length: 50 })
+    .notNull()
+    .default("0"),
+
+  // Performance
+  latencyMs: varchar("latencyMs", { length: 255 }), // Response time in milliseconds
+  cacheHit: boolean("cacheHit").default(false),
+
+  // Tools used
+  toolsUsed: json("toolsUsed").$type<string[]>(),
+
+  // Status
+  success: boolean("success").default(true),
+  errorType: varchar("errorType", { length: 100 }),
+
+  // Timestamps
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+});
+
+export type UsageEvent = InferSelectModel<typeof usageEvent>;
+
+// Rate limiting tracking
+export const rateLimit = pgTable(
+  "RateLimit",
+  {
+    userId: uuid("userId")
+      .notNull()
+      .references(() => user.id),
+
+    // Rate limit type
+    limitType: varchar("limitType", { length: 50 }).notNull(), // 'messages_per_minute', 'messages_per_day', etc.
+
+    // Counts
+    currentCount: varchar("currentCount", { length: 255 })
+      .notNull()
+      .default("0"),
+    limitValue: varchar("limitValue", { length: 255 }).notNull(),
+
+    // Time window
+    windowStart: timestamp("windowStart").notNull(),
+    windowEnd: timestamp("windowEnd").notNull(),
+
+    // Reset tracking
+    lastReset: timestamp("lastReset").notNull().defaultNow(),
+  },
+  (table) => ({
+    pk: primaryKey({
+      columns: [table.userId, table.limitType, table.windowStart],
+    }),
+  })
+);
+
+export type RateLimit = InferSelectModel<typeof rateLimit>;

@@ -54,7 +54,7 @@ import {
   DialogTitle,
 } from "./ui/dialog";
 import { Input } from "./ui/input";
-import type { VisibilityType } from "./visibility-selector";
+import { VisibilitySelector, type VisibilityType } from "./visibility-selector";
 
 function PureMultimodalInput({
   chatId,
@@ -322,6 +322,10 @@ function PureMultimodalInput({
             <ModelSelectorCompact
               onModelChange={onModelChange}
               selectedModelId={selectedModelId}
+            />
+            <VisibilitySelector
+              chatId={chatId}
+              selectedVisibilityType={_selectedVisibilityType}
             />
           </PromptInputTools>
 

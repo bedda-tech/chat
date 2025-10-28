@@ -66,10 +66,10 @@ export function VisibilitySelector({
         <Button
           className="flex h-8 h-fit cursor-pointer px-2"
           data-testid="visibility-selector"
-          variant="outline"
+          variant="ghost"
         >
           {selectedVisibility?.icon}
-          <span className="md:sr-only">{selectedVisibility?.label}</span>
+          {/* <span className="md:sr-only">{selectedVisibility?.label}</span> */}
         </Button>
       </DropdownMenuTrigger>
 

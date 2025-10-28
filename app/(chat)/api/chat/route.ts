@@ -18,7 +18,8 @@ import { fetchModels } from "tokenlens/fetch";
 import { getUsage } from "tokenlens/helpers";
 import { auth, type UserType } from "@/app/(auth)/auth";
 import type { VisibilityType } from "@/components/visibility-selector";
-import { entitlementsByUserType } from "@/lib/ai/entitlements";
+import { buildGatewayConfig, getThinkingBudget } from "@/lib/ai/gateway-config";
+import { getModelConfig } from "@/lib/ai/model-config";
 import type { ChatModel } from "@/lib/ai/models";
 import { type RequestHints, systemPrompt } from "@/lib/ai/prompts";
 import { myProvider } from "@/lib/ai/providers";
@@ -34,25 +35,24 @@ import {
 } from "@/lib/ai/tools/text-embeddings";
 import { transcribeAudioTool } from "@/lib/ai/tools/transcribe-audio";
 import { updateDocument } from "@/lib/ai/tools/update-document";
-import {
-  buildGatewayConfig,
-  getThinkingBudget,
-} from "@/lib/ai/gateway-config";
-import { getModelConfig } from "@/lib/ai/model-config";
 import { isProductionEnvironment } from "@/lib/constants";
 import {
   createStreamId,
   deleteChatById,
   getChatById,
-  getMessageCountByUserId,
   getMessagesByChatId,
   saveChat,
   saveMessages,
   updateChatLastContextById,
 } from "@/lib/db/queries";
 import { ChatSDKError } from "@/lib/errors";
+import {
+  createRateLimitResponse,
+  rateLimitMiddleware,
+} from "@/lib/middleware/rate-limit";
 import type { ChatMessage } from "@/lib/types";
 import type { AppUsage } from "@/lib/usage";
+import { recordUsage } from "@/lib/usage/tracking";
 import { convertToUIMessages, generateUUID } from "@/lib/utils";
 import { generateTitleFromUserMessage } from "../../actions";
 import { type PostRequestBody, postRequestBodySchema } from "./schema";
@@ -126,16 +126,13 @@ export async function POST(request: Request) {
       return new ChatSDKError("unauthorized:chat").toResponse();
     }
 
-    const userType: UserType = session.user.type;
-
-    const messageCount = await getMessageCountByUserId({
-      id: session.user.id,
-      differenceInHours: 24,
-    });
-
-    if (messageCount > entitlementsByUserType[userType].maxMessagesPerDay) {
-      return new ChatSDKError("rate_limit:chat").toResponse();
+    // Check rate limits (new tier-based system)
+    const rateLimitResult = await rateLimitMiddleware(session.user.id);
+    if (!rateLimitResult.allowed) {
+      return createRateLimitResponse(rateLimitResult);
     }
+
+    const _userType: UserType = session.user.type;
 
     const chat = await getChatById({ id });
 
@@ -188,8 +185,9 @@ export async function POST(request: Request) {
 
     // Build active tools list based on model capabilities
     // All tools go through Vercel AI Gateway which handles provider credentials
-    const isGemini25FlashImage = selectedChatModel === "google-gemini-2.5-flash-image-preview";
-    
+    const isGemini25FlashImage =
+      selectedChatModel === "google-gemini-2.5-flash-image-preview";
+
     const allTools = [
       "getWeather",
       "createDocument",
@@ -201,7 +199,7 @@ export async function POST(request: Request) {
       "generateTextEmbeddings",
       "compareTextSimilarity",
     ];
-    
+
     // Gemini 2.5 Flash Image does NOT support function calling at all
     // It generates images via responseModalities in the model response itself
     const activeTools =
@@ -227,26 +225,27 @@ export async function POST(request: Request) {
           generateTextEmbeddings: generateTextEmbeddingsTool(),
           compareTextSimilarity: compareTextSimilarityTool(),
         };
-        
+
         // Get the actual gateway model ID
-        const gatewayModelId = myProvider.languageModel(selectedChatModel).modelId || "";
-        
+        const gatewayModelId =
+          myProvider.languageModel(selectedChatModel).modelId || "";
+
         // Get model-specific configuration
         const modelConfig = getModelConfig(gatewayModelId);
-        
+
         // Build provider options with gateway config and fallback
         const gatewayConfig = buildGatewayConfig(gatewayModelId);
         const providerOptions: Record<string, any> = {
           gateway: gatewayConfig,
         };
-        
+
         // Add image generation for Gemini 2.5 Flash Image
         if (isGemini25FlashImage) {
           providerOptions.google = {
-            responseModalities: ['TEXT', 'IMAGE']
+            responseModalities: ["TEXT", "IMAGE"],
           };
         }
-        
+
         // Add thinking budget for Anthropic models (helps control extended reasoning)
         const thinkingBudget = getThinkingBudget(gatewayModelId);
         if (thinkingBudget) {
@@ -254,18 +253,20 @@ export async function POST(request: Request) {
             thinkingBudget,
           };
         }
-        
+
         const result = streamText({
           model: myProvider.languageModel(selectedChatModel),
-          system: systemPrompt({ 
-            selectedChatModel, 
+          system: systemPrompt({
+            selectedChatModel,
             requestHints,
           }),
           messages: convertToModelMessages(uiMessages),
           // Use model-specific maxSteps configuration
           stopWhen: stepCountIs(modelConfig.maxSteps),
           // Use model-specific temperature if available
-          ...(modelConfig.temperature && { temperature: modelConfig.temperature }),
+          ...(modelConfig.temperature && {
+            temperature: modelConfig.temperature,
+          }),
           // Only pass tools if model supports them
           ...(activeTools.length > 0 && {
             experimental_activeTools: activeTools,
@@ -290,32 +291,35 @@ export async function POST(request: Request) {
               const providers = await getTokenlensCatalog();
               const modelId =
                 myProvider.languageModel(selectedChatModel).modelId;
-              
+
               // Extract provider metadata from response
-              const providerMetadata = response.headers?.['x-vercel-ai-provider-metadata'];
+              const providerMetadata =
+                response.headers?.["x-vercel-ai-provider-metadata"];
               let gatewayMetadata: any = null;
-              
+
               if (providerMetadata) {
                 try {
                   const metadata = JSON.parse(providerMetadata);
                   gatewayMetadata = metadata.gateway;
-                  
+
                   // Log gateway routing and cost info for debugging
                   if (gatewayMetadata) {
-                    console.log('AI Gateway Metadata:', {
+                    console.log("AI Gateway Metadata:", {
                       cost: gatewayMetadata.cost,
                       routing: gatewayMetadata.routing,
                     });
                   }
                 } catch (parseErr) {
-                  console.warn('Failed to parse provider metadata', parseErr);
+                  console.warn("Failed to parse provider metadata", parseErr);
                 }
               }
-              
+
               if (!modelId) {
-                finalMergedUsage = { 
-                  ...usage, 
-                  ...(gatewayMetadata?.cost && { gatewayCost: gatewayMetadata.cost }),
+                finalMergedUsage = {
+                  ...usage,
+                  ...(gatewayMetadata?.cost && {
+                    gatewayCost: gatewayMetadata.cost,
+                  }),
                 };
                 dataStream.write({
                   type: "data-usage",
@@ -325,9 +329,11 @@ export async function POST(request: Request) {
               }
 
               if (!providers) {
-                finalMergedUsage = { 
-                  ...usage, 
-                  ...(gatewayMetadata?.cost && { gatewayCost: gatewayMetadata.cost }),
+                finalMergedUsage = {
+                  ...usage,
+                  ...(gatewayMetadata?.cost && {
+                    gatewayCost: gatewayMetadata.cost,
+                  }),
                 };
                 dataStream.write({
                   type: "data-usage",
@@ -337,17 +343,56 @@ export async function POST(request: Request) {
               }
 
               const summary = getUsage({ modelId, usage, providers });
-              finalMergedUsage = { 
-                ...usage, 
-                ...summary, 
+              finalMergedUsage = {
+                ...usage,
+                ...summary,
                 modelId,
-                ...(gatewayMetadata?.cost && { gatewayCost: gatewayMetadata.cost }),
+                ...(gatewayMetadata?.cost && {
+                  gatewayCost: gatewayMetadata.cost,
+                }),
               } as AppUsage;
               dataStream.write({ type: "data-usage", data: finalMergedUsage });
+
+              // Track usage in new analytics system
+              try {
+                await recordUsage({
+                  userId: session.user.id,
+                  modelId: selectedChatModel,
+                  provider: selectedChatModel.split("-")[0] || "unknown",
+                  sessionId: id,
+                  inputTokens: usage.promptTokens || 0,
+                  outputTokens: usage.completionTokens || 0,
+                  cachedTokens: 0, // TODO: Extract from provider metadata
+                  latency: undefined, // TODO: Track latency
+                  cacheHit: false,
+                  toolsUsed: [],
+                  success: true,
+                });
+              } catch (trackingErr) {
+                console.error("Failed to record usage:", trackingErr);
+                // Don't fail the request if tracking fails
+              }
             } catch (err) {
               console.warn("TokenLens enrichment failed", err);
               finalMergedUsage = usage;
               dataStream.write({ type: "data-usage", data: finalMergedUsage });
+
+              // Track failed request
+              try {
+                await recordUsage({
+                  userId: session.user.id,
+                  modelId: selectedChatModel,
+                  provider: selectedChatModel.split("-")[0] || "unknown",
+                  sessionId: id,
+                  inputTokens: 0,
+                  outputTokens: 0,
+                  cachedTokens: 0,
+                  success: false,
+                  errorType: err instanceof Error ? err.name : "UnknownError",
+                });
+              } catch (trackingErr) {
+                console.error("Failed to record failed usage:", trackingErr);
+              }
             }
           },
         });
@@ -384,9 +429,7 @@ export async function POST(request: Request) {
           }
         }
       },
-      onError: () => {
-        return "Oops, an error occurred!";
-      },
+      onError: () => "Oops, an error occurred!",
     });
 
     // Enable resumable streams if Redis is configured
