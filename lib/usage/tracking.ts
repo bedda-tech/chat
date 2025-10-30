@@ -1,6 +1,11 @@
 import { and, eq, gte } from "drizzle-orm";
-import { db } from "@/lib/db";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 import { rateLimit, usageEvent, userTier, userUsage } from "@/lib/db/schema";
+
+const connectionString = process.env.POSTGRES_URL!;
+const client = postgres(connectionString);
+const db = drizzle(client);
 
 export type UserTierType = "free" | "pro" | "premium" | "enterprise";
 
