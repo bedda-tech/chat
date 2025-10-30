@@ -360,8 +360,8 @@ export async function POST(request: Request) {
                   modelId: selectedChatModel,
                   provider: selectedChatModel.split("-")[0] || "unknown",
                   sessionId: id,
-                  inputTokens: usage.promptTokens || 0,
-                  outputTokens: usage.completionTokens || 0,
+                  inputTokens: usage.inputTokens || 0,
+                  outputTokens: usage.outputTokens || 0,
                   cachedTokens: 0, // TODO: Extract from provider metadata
                   latency: undefined, // TODO: Track latency
                   cacheHit: false,
