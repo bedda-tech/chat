@@ -21,6 +21,7 @@ import {
   getToolIcon,
 } from "@/lib/ai/model-tools";
 import { getModelIdealUse } from "@/lib/ai/model-config";
+import { useAvailableModels } from "@/hooks/use-available-models";
 import { cn } from "@/lib/utils";
 import { CheckCircleFillIcon, ChevronDownIcon } from "./icons";
 
@@ -38,16 +39,29 @@ export function ModelSelector({
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedToolFilters, setSelectedToolFilters] = useState<Set<ModelTool>>(new Set());
 
+  // Fetch dynamic models from AI Gateway
+  const { models: dynamicModels, isLoading, isFallback } = useAvailableModels();
+
   const userType = session.user.type;
   const { availableChatModelIds } = entitlementsByUserType[userType];
 
-  const availableChatModels = useMemo(
-    () =>
-      chatModels.filter((chatModel) =>
-        availableChatModelIds.includes(chatModel.id)
-      ),
-    [availableChatModelIds]
-  );
+  // Use dynamic models if available, fallback to static models
+  const availableChatModels = useMemo(() => {
+    // Merge dynamic models with static models for backward compatibility
+    const allModels = dynamicModels.length > 0 ? [
+      ...dynamicModels.map(m => ({
+        id: m.id,
+        name: m.name,
+        description: m.description,
+      })),
+      ...chatModels // Keep legacy models
+    ] : chatModels;
+
+    // Filter by entitlements
+    return allModels.filter((chatModel) =>
+      availableChatModelIds.includes(chatModel.id)
+    );
+  }, [dynamicModels, availableChatModelIds]);
 
   const allAvailableTools = useMemo(() => {
     const toolsSet = new Set<ModelTool>();
@@ -128,6 +142,30 @@ export function ModelSelector({
         align="start"
         className="min-w-[280px] max-w-[90vw] sm:min-w-[400px]"
       >
+        {/* Dynamic Model Discovery Status */}
+        {(isLoading || isFallback || dynamicModels.length > 0) && (
+          <div className="border-b border-border px-3 py-2">
+            {isLoading && (
+              <div className="flex items-center gap-2 text-muted-foreground text-xs">
+                <div className="h-2 w-2 animate-pulse rounded-full bg-blue-500" />
+                Loading models from AI Gateway...
+              </div>
+            )}
+            {!isLoading && dynamicModels.length > 0 && !isFallback && (
+              <div className="flex items-center gap-2 text-green-600 text-xs dark:text-green-400">
+                <div className="h-2 w-2 rounded-full bg-green-500" />
+                {dynamicModels.length} models discovered dynamically
+              </div>
+            )}
+            {isFallback && (
+              <div className="flex items-center gap-2 text-yellow-600 text-xs dark:text-yellow-400">
+                <div className="h-2 w-2 rounded-full bg-yellow-500" />
+                Using cached models (live data unavailable)
+              </div>
+            )}
+          </div>
+        )}
+
         <div className="p-2 pb-0">
           <Input
             placeholder="Search models..."

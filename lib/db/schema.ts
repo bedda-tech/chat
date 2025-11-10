@@ -177,6 +177,7 @@ export const userTier = pgTable("UserTier", {
     .default("free"),
   subscriptionId: varchar("subscriptionId", { length: 255 }),
   subscriptionStatus: varchar("subscriptionStatus", { length: 50 }),
+  stripeCustomerId: varchar("stripeCustomerId", { length: 255 }),
   currentPeriodStart: timestamp("currentPeriodStart"),
   currentPeriodEnd: timestamp("currentPeriodEnd"),
   cancelAtPeriodEnd: boolean("cancelAtPeriodEnd").default(false),

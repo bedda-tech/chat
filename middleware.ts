@@ -13,7 +13,14 @@ export async function middleware(request: NextRequest) {
     return new Response("pong", { status: 200 });
   }
 
-  if (pathname.startsWith("/api/auth")) {
+  // Public routes that don't require authentication
+  const publicRoutes = ["/pricing", "/roadmap"];
+  if (
+    pathname.startsWith("/api/auth") ||
+    pathname.startsWith("/api/webhooks") ||
+    pathname.startsWith("/api/models") || // Allow dynamic model discovery
+    publicRoutes.includes(pathname)
+  ) {
     return NextResponse.next();
   }
 

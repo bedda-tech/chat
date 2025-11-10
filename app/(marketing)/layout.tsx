@@ -29,6 +29,12 @@ export default function MarketingLayout({
             <nav className="flex items-center space-x-6 text-sm font-medium">
               <Link
                 className="transition-colors hover:text-foreground/80 text-foreground/60"
+                href="/pricing"
+              >
+                Pricing
+              </Link>
+              <Link
+                className="transition-colors hover:text-foreground/80 text-foreground/60"
                 href="/roadmap"
               >
                 Roadmap

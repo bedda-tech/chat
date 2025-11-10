@@ -21,7 +21,7 @@ import type { VisibilityType } from "@/components/visibility-selector";
 import { buildGatewayConfig, getThinkingBudget } from "@/lib/ai/gateway-config";
 import { getModelConfig } from "@/lib/ai/model-config";
 import type { ChatModel } from "@/lib/ai/models";
-import { type RequestHints, systemPrompt } from "@/lib/ai/prompts";
+import { type RequestHints, getCacheableSystemPrompt } from "@/lib/ai/prompts";
 import { myProvider } from "@/lib/ai/providers";
 import { analyzeDataTool } from "@/lib/ai/tools/analyze-data";
 import { createDocument } from "@/lib/ai/tools/create-document";
@@ -256,7 +256,7 @@ export async function POST(request: Request) {
 
         const result = streamText({
           model: myProvider.languageModel(selectedChatModel),
-          system: systemPrompt({
+          system: getCacheableSystemPrompt({
             selectedChatModel,
             requestHints,
           }),
@@ -355,6 +355,12 @@ export async function POST(request: Request) {
 
               // Track usage in new analytics system
               try {
+                // Extract cache information from AI SDK usage object
+                // Anthropic models return cacheReadInputTokens, cacheCreationInputTokens
+                // OpenAI models have automatic caching (no explicit fields)
+                const cachedTokens = (usage as any).cacheReadInputTokens || 0;
+                const cacheHit = cachedTokens > 0;
+
                 await recordUsage({
                   userId: session.user.id,
                   modelId: selectedChatModel,
@@ -362,9 +368,9 @@ export async function POST(request: Request) {
                   sessionId: id,
                   inputTokens: usage.inputTokens || 0,
                   outputTokens: usage.outputTokens || 0,
-                  cachedTokens: 0, // TODO: Extract from provider metadata
+                  cachedTokens,
                   latency: undefined, // TODO: Track latency
-                  cacheHit: false,
+                  cacheHit,
                   toolsUsed: [],
                   success: true,
                 });

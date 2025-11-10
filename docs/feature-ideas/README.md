@@ -305,6 +305,55 @@ Mobile-first design and advanced accessibility for inclusive access across all d
 
 ---
 
+### 15. **Vercel Workflow Integration**
+**File**: `VERCEL_WORKFLOW_INTEGRATION.md`
+
+Integrate Vercel Workflow for durable, long-running AI workflows with human-in-the-loop capabilities.
+
+**Key Features**:
+- Resumable workflows (pause for minutes to months)
+- Human approval gates and feedback loops
+- Multi-step AI agent pipelines
+- Scheduled execution and content publishing
+- Multi-agent orchestration
+- Built-in observability and retry logic
+- Workflow templates and marketplace
+
+**Cost Savings**: 15-20% reduction in AI costs vs non-workflow approach
+**Priority**: High (Premium tier differentiator)
+**Effort**: 3-4 months
+**Cost**: $300-8,400/month (scales with usage, ~1M free steps/month)
+**Status**: Planning Phase
+
+---
+
+## 📊 Feature Dependencies & Strategic Plan
+
+**🔗 See**: [`FEATURE_DEPENDENCIES.md`](./FEATURE_DEPENDENCIES.md) for comprehensive dependency analysis, implementation phases, critical path, resource allocation, and financial projections.
+
+### Quick Reference: Dependency Layers
+
+```
+Layer 0 (✅ DONE): Usage Analytics & Monitoring
+   ↓
+Layer 1 (Week 1-4): Prompt Caching, Dynamic Models, Pricing
+   ↓
+Layer 2 (Month 2-3): Streaming, Mobile, RAG, Sandboxes, Artifacts
+   ↓
+Layer 3 (Month 4-6): Workflows, AI Gateway, Video Generation
+   ↓
+Layer 4 (Month 7-12): Collaboration, Enterprise Integrations
+```
+
+**Key Insights**:
+- **Foundation Complete** ✅: Usage Analytics enables everything else
+- **Critical Path**: 40-48 weeks for full enterprise platform
+- **Parallel Tracks**: Mobile, Artifacts, and some features can run concurrently
+- **Cost Optimization First**: Prompt Caching (50-90% savings) is immediate priority
+- **Revenue Blockers**: Pricing/Monetization must complete before premium features
+
+---
+
 ## 📊 Priority Matrix (Sorted by Importance → Difficulty)
 
 ### 🚨 **CRITICAL MVP** - Must Have to Launch Sustainably
@@ -360,12 +409,13 @@ Features that make the product competitive and valuable.
 |---------|----------|--------|------|-----|----------|
 | **RAG & Document Search** | High | High | 2-3 weeks | Premium feature | Month 2-3 |
 | **Code Sandboxes (MVP)** | High | High | 3-4 weeks | Developer feature | Month 3-4 |
+| **Vercel Workflow Integration** | High | Very High | 3-4 months | Premium feature + cost savings | Month 3-6 |
 | **Advanced Streaming** | Medium | Medium | 1-2 weeks | UX enhancement | Month 2 |
 | **Artifacts Expansion** | High | Very High | 3-6 months | Feature depth | Month 3-8 |
 | **AI Video Generation** | Medium | High | 2-3 weeks | Premium feature | Month 4-5 |
 
 **Total Core Features Time**: 3-6 months (phased)
-**Impact**: Product differentiation, premium tier value
+**Impact**: Product differentiation, premium tier value, 15-20% cost reduction
 
 ---
 
@@ -384,130 +434,249 @@ Features for enterprise customers and scaling to large user bases.
 
 ---
 
-## 🗺️ **REVISED Implementation Roadmap**
+## 🗺️ **DEPENDENCY-AWARE Implementation Roadmap**
 
-### **Week 1-2: Critical MVP** 🚨
-**Goal**: Stop financial bleeding, enable basic monetization
+> 📘 **Note**: This roadmap respects feature dependencies and parallelization opportunities. See [`FEATURE_DEPENDENCIES.md`](./FEATURE_DEPENDENCIES.md) for detailed analysis.
+
+### **Phase 0: Foundation** ✅ COMPLETED
+**Timeline**: Week 1-2
+**Status**: ✅ **DONE**
 
 1. **Usage Analytics & Rate Limiting** (Week 1) ✅ **COMPLETED**
-   - [x] Database schema for usage tracking (1 day)
-   - [x] Rate limiting middleware (1 day)
-   - [x] Basic usage tracking service (2 days)
-   - [x] Integration into chat API (1 day)
-   - [x] Documentation and testing (1 day)
+   - [x] Database schema for usage tracking
+   - [x] Rate limiting middleware
+   - [x] Basic usage tracking service
+   - [x] Integration into chat API
+   - [x] Documentation and testing
 
-2. **Basic Tier System** (Week 2) ⚠️ **IN PROGRESS**
-   - [x] User tier system in DB (completed with usage analytics)
-   - [x] Tier enforcement middleware (completed with rate limiting)
-   - [ ] Basic user dashboard (2 days) - **NEXT**
-   - [ ] Testing & deployment (1 day)
+2. **Basic Tier System** (Week 2) ✅ **COMPLETED**
+   - [x] User tier system in DB
+   - [x] Tier enforcement middleware
+   - [x] Quota enforcement
 
-**Deliverable**: App can safely operate without runaway costs ✅
-**Cost Impact**: Prevents $1k-10k/month in potential overages ✅
+**Impact**: Foundation for all features, prevents runaway costs
+**Cost Savings**: $1k-10k/month in potential overages prevented
+**Enables**: All other features (everything depends on this)
 
 **Files Changed:**
-- `lib/db/schema.ts` - Added UserTier, UserUsage, UsageEvent, RateLimit tables
-- `lib/usage/tracking.ts` - Core usage tracking and rate limiting service
+- `lib/db/schema.ts` - UserTier, UserUsage, UsageEvent, RateLimit tables
+- `lib/usage/tracking.ts` - Usage tracking and rate limiting
 - `lib/middleware/rate-limit.ts` - Rate limiting middleware
-- `app/(chat)/api/chat/route.ts` - Integration with chat API
-- `lib/db/migrations/0008_usage_tracking.sql` - Database migration
-- `CHANGELOG.md` - Documentation of changes
-- `lib/usage/README.md` - System documentation
+- `app/(chat)/api/chat/route.ts` - Integration
+- `lib/db/migrations/0008_usage_tracking.sql` - Migration
 
 ---
 
-### **Week 3-4: Quick Wins** 🍎
-**Goal**: Reduce costs, improve UX, accessibility
+### **Phase 1: Quick Wins & Monetization** 🍎
+**Timeline**: Week 3-6 (4 weeks)
+**Goal**: Reduce costs, improve UX, enable revenue
+**Dependencies**: Phase 0 ✅
 
-1. **Prompt Caching** (2-3 days)
+#### Week 3-4: Cost Optimization (Priority 1)
+1. **Prompt Caching** (2-3 days) - **CRITICAL**
    - [ ] Enable caching in AI SDK config
    - [ ] Add cache headers to system prompts
    - [ ] Cache conversation history
    - [ ] Monitor cache hit rates
+   - **Dependencies**: Usage Analytics ✅
+   - **Enables**: All features (cost savings)
+   - **ROI**: 50-90% cost reduction
 
-2. **Mobile Optimizations** (3-4 days)
-   - [ ] Finish mobile sidebar work (already started)
-   - [ ] Complete touch-optimized buttons
-   - [ ] Responsive input improvements
-   - [ ] iOS viewport fixes
-
-3. **PWA & Accessibility** (3-4 days)
-   - [ ] Add manifest.json and service worker
-   - [ ] High contrast mode toggle
-   - [ ] ARIA labels audit
-   - [ ] Keyboard navigation
-
-4. **Dynamic Model Discovery** (2 days)
+2. **Dynamic Model Discovery** (2-3 days)
    - [ ] AI Gateway model listing API
    - [ ] Auto-sync to database
    - [ ] Pricing auto-update
+   - **Dependencies**: Usage Analytics ✅
+   - **Enables**: Advanced AI Gateway, intelligent routing
+   - **ROI**: Reduced maintenance, always current
 
-**Deliverable**: 50-90% cost reduction, better UX, WCAG compliance
-**Cost Impact**: $200+ savings per 1000 users/month
+3. **Mobile Optimizations** (3-4 days) - Can run in parallel
+   - [ ] Finish mobile sidebar work
+   - [ ] Touch-optimized buttons
+   - [ ] Responsive input improvements
+   - [ ] iOS viewport fixes
+   - **Dependencies**: None (parallel track)
+   - **ROI**: 60%+ users on mobile
 
----
-
-### **Week 5-8: Monetization Foundation** 💰
-**Goal**: Start charging customers, generate revenue
-
-1. **Stripe Integration** (Week 5)
-   - [ ] Stripe setup and webhooks
+#### Week 5-6: Monetization Enable (Priority 1)
+4. **Pricing & Subscription System** (1 week)
+   - [ ] Stripe integration
    - [ ] Subscription management
    - [ ] Payment flow
+   - [ ] Plan comparison page
+   - **Dependencies**: Usage Analytics ✅
+   - **Enables**: ALL premium features
+   - **ROI**: Revenue generation
 
-2. **Pricing & Plans** (Week 6)
-   - [ ] Pricing page UI
-   - [ ] Plan comparison
-   - [ ] Upgrade/downgrade flows
+5. **PWA & Accessibility** (1-2 days) - Can run in parallel
+   - [ ] Manifest.json and service worker
+   - [ ] High contrast mode
+   - [ ] ARIA labels
+   - [ ] Keyboard navigation
+   - **Dependencies**: None
+   - **ROI**: Native app feel, WCAG compliance
 
-3. **User Dashboard** (Week 7)
-   - [ ] Usage analytics dashboard
-   - [ ] Billing history
-   - [ ] Usage notifications
-
-4. **Testing & Launch** (Week 8)
-   - [ ] End-to-end payment testing
-   - [ ] Soft launch to beta users
-   - [ ] Monitor and iterate
-
-**Deliverable**: Revenue generation capability
-**Revenue Impact**: $16k/month at 10k users
+**Deliverables**: 50-90% cost reduction, mobile-ready, revenue-enabled
+**Cost Impact**: $200+ savings per 1000 users/month
+**Revenue Impact**: $1k-5k/month initial MRR
+**Enables**: RAG, Sandboxes, Video Generation, all premium features
 
 ---
 
-### **Month 3-4: Core Features Phase 1** 🚀
+### **Phase 2: Core Features & Premium Value** 🚀
+**Timeline**: Month 2-4 (8-12 weeks)
 **Goal**: Build competitive features, premium tier value
+**Dependencies**: Phase 0 ✅, Phase 1 (Pricing & Caching required)
 
+#### Month 2: Streaming & UX Foundation
 1. **Advanced Streaming** (2 weeks)
-2. **RAG & Document Search** (3 weeks)
-3. **Code Sandboxes MVP** (4 weeks)
+   - [ ] Streaming UI components (charts, tables)
+   - [ ] Tool execution visibility
+   - [ ] Reasoning visualization
+   - [ ] Stream cancellation
+   - **Dependencies**: Dynamic Model Discovery
+   - **Enables**: Collaboration, Workflows, better UX
+   - **ROI**: 10x perceived performance improvement
 
-**Deliverable**: Premium tier features that justify $50/month pricing
-**Revenue Impact**: Higher conversion rates, reduced churn
+2. **Mobile & Accessibility (Full)** (2 weeks) - Can run in parallel
+   - [ ] WCAG 2.1 AA compliance
+   - [ ] Screen reader support
+   - [ ] Keyboard navigation
+   - [ ] High contrast mode
+   - **Dependencies**: Mobile Optimizations (Phase 1)
+   - **ROI**: Accessibility compliance, wider reach
+
+#### Month 3: Developer Platform
+3. **Code Sandboxes** (3-4 weeks)
+   - [ ] Vercel Sandbox integration
+   - [ ] Python 3.13 + Node.js 22 support
+   - [ ] Package management UI
+   - [ ] Streaming output
+   - [ ] Quota enforcement by tier
+   - **Dependencies**: Usage Analytics ✅, Pricing ✅
+   - **Enables**: Developer features, education use cases
+   - **ROI**: Premium tier driver, developer appeal
+
+4. **Artifacts Expansion (Phase 1)** (ongoing) - Can run in parallel
+   - [ ] Chart artifacts (Recharts)
+   - [ ] Diagram artifacts (Mermaid)
+   - [ ] Interactive tables (TanStack Table)
+   - **Dependencies**: Advanced Streaming
+   - **ROI**: Better content creation, premium value
+
+#### Month 4: Knowledge & Intelligence
+5. **RAG & Document Search** (3-4 weeks)
+   - [ ] Supabase pgvector setup
+   - [ ] Document processing pipeline
+   - [ ] Semantic search
+   - [ ] Knowledge base UI
+   - [ ] Citation generation
+   - **Dependencies**: Usage Analytics ✅, Pricing ✅, Prompt Caching ✅
+   - **Enables**: Enterprise knowledge bases, premium tier
+   - **ROI**: Premium feature, 90% cost reduction for document workflows
+
+**Deliverables**: Premium-tier features, developer platform, knowledge bases
+**Revenue Impact**: $10k-20k/month MRR
+**User Impact**: 20%+ premium conversion rate
+**Cost Impact**: Optimized with caching, 60-90% savings on document queries
 
 ---
 
-### **Month 5-8: Core Features Phase 2** 🚀
-**Goal**: Feature depth, product differentiation
+### **Phase 3: Premium Differentiation** 💎
+**Timeline**: Month 5-7 (12 weeks)
+**Goal**: High-value features for premium/enterprise tiers
+**Dependencies**: Phase 0 ✅, Phase 1 ✅, Phase 2 (Streaming required)
 
-1. **Artifacts Expansion** (ongoing, phased)
-2. **AI Video Generation** (3 weeks)
-3. **Advanced AI Gateway** (2-3 months)
+#### Month 5-6: Workflows & Intelligence (Parallel Tracks)
+1. **Vercel Workflow** (6-8 weeks)
+   - [ ] Basic workflow support
+   - [ ] Human-in-the-loop approvals
+   - [ ] Multi-step pipelines
+   - [ ] Workflow templates
+   - [ ] Dashboard and monitoring
+   - **Dependencies**: Usage Analytics ✅, Pricing ✅, Advanced Streaming ✅
+   - **Enables**: Long-running tasks, approval workflows
+   - **ROI**: Premium differentiator, 15-20% cost savings
 
-**Deliverable**: Industry-leading feature set
-**Revenue Impact**: $50k-200k/month at scale
+2. **Advanced AI Gateway** (6-8 weeks) - Can run in parallel
+   - [ ] Intelligent model routing
+   - [ ] Automatic failover
+   - [ ] Advanced caching strategies
+   - [ ] Cost optimization
+   - [ ] Budget management
+   - **Dependencies**: Dynamic Model Discovery ✅, Prompt Caching ✅, Streaming ✅
+   - **Enables**: 99.9% uptime, enterprise reliability
+   - **ROI**: 30-50% additional cost savings
+
+#### Month 7: Creative Features
+3. **AI Video Generation** (3-4 weeks)
+   - [ ] Kling AI integration
+   - [ ] Quality tiers (budget, standard, premium)
+   - [ ] Queue-based processing
+   - [ ] Preview/playback UI
+   - [ ] Tier-based quotas (Pro: 2/mo, Premium: 10/mo)
+   - **Dependencies**: Pricing ✅, Usage Analytics ✅
+   - **Enables**: Premium tier value, creative workflows
+   - **ROI**: Premium tier driver, high engagement
+
+4. **Artifacts Expansion (Phase 2)** (ongoing) - Can run in parallel
+   - [ ] Form builder
+   - [ ] 3D viewer
+   - [ ] Advanced visualizations
+   - **Dependencies**: Advanced Streaming ✅
+   - **ROI**: Feature depth, professional tools
+
+**Deliverables**: Workflow automation, intelligent routing, video generation
+**Revenue Impact**: $30k-50k/month MRR
+**Cost Savings**: Additional 30-50% optimization
+**Premium Adoption**: 10%+ of user base on premium tier
 
 ---
 
-### **Month 9+: Enterprise & Scale** 🏢
-**Goal**: Enterprise sales, team features
+### **Phase 4: Team & Enterprise** 🏢
+**Timeline**: Month 8-12 (16-20 weeks)
+**Goal**: Enterprise sales, team features, scalability
+**Dependencies**: Phase 0-3 (Most features required)
 
-1. **Real-Time Collaboration**
-2. **Enterprise Integrations**
-3. **Advanced AI Capabilities**
+#### Month 8-10: Collaboration & Advanced AI (Parallel Tracks)
+1. **Real-Time Collaboration** (8-10 weeks)
+   - [ ] Live shared sessions
+   - [ ] Team workspaces
+   - [ ] Collaborative artifact editing
+   - [ ] Permission system (owner, editor, viewer)
+   - [ ] Presence indicators
+   - [ ] Team knowledge sharing
+   - **Dependencies**: Advanced Streaming ✅, Artifacts Expansion ✅
+   - **Enables**: Enterprise team features
+   - **ROI**: Team tier pricing ($100-500/mo per team)
 
-**Deliverable**: Enterprise-ready platform
-**Revenue Impact**: $100k-500k/month enterprise contracts
+2. **Advanced AI Capabilities** (8-10 weeks) - Can run in parallel
+   - [ ] Multi-modal interactions (vision, audio)
+   - [ ] Advanced reasoning modes
+   - [ ] Autonomous task execution
+   - [ ] Predictive analytics
+   - [ ] Chain-of-thought visualization
+   - **Dependencies**: Advanced AI Gateway ✅, Vercel Workflow ✅, RAG ✅
+   - **Enables**: Competitive differentiation
+   - **ROI**: Premium tier value, reduced churn
+
+#### Month 11-12: Enterprise Integration
+3. **Enterprise Integrations** (8-10 weeks)
+   - [ ] Slack integration (bot, webhooks)
+   - [ ] Microsoft Teams integration
+   - [ ] Google Workspace integration
+   - [ ] SSO (SAML, OIDC) with Okta/Azure AD
+   - [ ] Audit logging
+   - [ ] Compliance tools (GDPR, SOC 2)
+   - [ ] API ecosystem for custom integrations
+   - **Dependencies**: Real-Time Collaboration ✅, RAG ✅, Advanced AI Gateway ✅
+   - **Enables**: Enterprise sales, security compliance
+   - **ROI**: $100k-500k/month enterprise contracts
+
+**Deliverables**: Enterprise-ready platform, team collaboration, integrations
+**Revenue Impact**: $100k-200k/month MRR from enterprise accounts
+**Customer Profile**: Enterprise accounts (10-1000+ seats)
+**Deal Size**: $50k-500k annual contracts
 
 ---
 
@@ -657,7 +826,7 @@ For questions about these feature ideas or implementation guidance, please refer
 
 ---
 
-**Last Updated**: 2025-10-21
-**Total Features**: 14
+**Last Updated**: 2025-11-03
+**Total Features**: 15
 **Total Estimated Value**: $500k+/month (at 100k users)
 **Total Estimated Effort**: 12-18 months (2-3 developers)

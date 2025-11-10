@@ -58,7 +58,7 @@ export const systemPrompt = ({
   requestHints: RequestHints;
 }) => {
   const requestPrompt = getRequestPromptFromHints(requestHints);
-  
+
   const isGemini25FlashImage = selectedChatModel === "google-gemini-2.5-flash-image-preview";
 
   const imageGenerationPrompt = isGemini25FlashImage
@@ -70,6 +70,42 @@ export const systemPrompt = ({
   }
 
   return `${regularPrompt}\n\n${requestPrompt}\n\n${artifactsPrompt}${imageGenerationPrompt}`;
+};
+
+/**
+ * Creates a cacheable system prompt with Anthropic cache control headers
+ * This enables 90% cost reduction on cached tokens (Anthropic models)
+ * and 50% cost reduction for OpenAI models
+ */
+export const getCacheableSystemPrompt = ({
+  selectedChatModel,
+  requestHints,
+}: {
+  selectedChatModel: string;
+  requestHints: RequestHints;
+}) => {
+  const content = systemPrompt({ selectedChatModel, requestHints });
+
+  // Determine if this model supports caching
+  const isAnthropicModel = selectedChatModel.includes('anthropic') || selectedChatModel.includes('claude');
+  const isOpenAIModel = selectedChatModel.includes('openai') || selectedChatModel.includes('gpt');
+
+  // For Anthropic models, add cache control
+  if (isAnthropicModel) {
+    return {
+      role: 'system' as const,
+      content,
+      experimental_providerMetadata: {
+        anthropic: {
+          cacheControl: { type: 'ephemeral' }
+        }
+      }
+    };
+  }
+
+  // For OpenAI models, cache control is automatic for system prompts
+  // (just return the content, SDK handles it)
+  return content;
 };
 
 export const codePrompt = `
