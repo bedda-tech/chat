@@ -41,24 +41,27 @@ export type RateLimitConfig = {
 
 export const TIER_LIMITS: Record<UserTierType, RateLimitConfig> = {
   free: {
-    messagesPerMinute: 3,
-    messagesPerDay: 30,
-    messagesPerMonth: 75,
+    messagesPerMinute: 5,
+    messagesPerDay: 50,
+    messagesPerMonth: 200,
   },
   pro: {
-    messagesPerMinute: 10,
-    messagesPerDay: 300,
-    messagesPerMonth: 750,
+    // Better than ChatGPT Plus (~1,280/day), Claude Pro (~216/day), Gemini (100/day), Grok (~600/day)
+    // Unlimited monthly - only daily cap applies
+    messagesPerMinute: 20,
+    messagesPerDay: 1_500,
+    messagesPerMonth: 999_999_999, // Effectively unlimited
   },
   premium: {
-    messagesPerMinute: 20,
-    messagesPerDay: 1000,
-    messagesPerMonth: 3000,
+    // Unlimited monthly - only daily cap applies
+    messagesPerMinute: 40,
+    messagesPerDay: 5_000,
+    messagesPerMonth: 999_999_999, // Effectively unlimited
   },
   enterprise: {
     messagesPerMinute: 100,
-    messagesPerDay: 10_000,
-    messagesPerMonth: 100_000,
+    messagesPerDay: 50_000,
+    messagesPerMonth: 999_999_999, // Effectively unlimited
   },
 };
 

@@ -26,19 +26,22 @@ export const STRIPE_PLANS = {
     id: null, // Free tier has no Stripe product
     name: "Free",
     price: 0,
-    messagesPerMonth: 75,
+    messagesPerDay: 50,
+    messagesPerMonth: 200,
   },
   PRO: {
     id: process.env.STRIPE_PRO_PRICE_ID,
     name: "Pro",
     price: 2000, // $20.00 in cents
-    messagesPerMonth: 750,
+    messagesPerDay: 1_500, // Better than ChatGPT Plus (~1,280/day)
+    messagesPerMonth: 999_999_999, // Unlimited monthly
   },
   PREMIUM: {
     id: process.env.STRIPE_PREMIUM_PRICE_ID,
     name: "Premium",
     price: 5000, // $50.00 in cents
-    messagesPerMonth: 3000,
+    messagesPerDay: 5_000,
+    messagesPerMonth: 999_999_999, // Unlimited monthly
   },
 } as const;
 
